@@ -29,9 +29,9 @@ class _LoginFirstTimeState extends State<LoginFirstTime> implements PostWidgetCa
   @override
   Widget build(BuildContext context) {
     controller.cubit = context.read<LoginUserCubit>();
-   cubit.errorObs.listen((value){
-      AppUtils.showSnack(value, context);
-    });
+   // cubit.errorObs.listen((value){
+   //    AppUtils.showSnack(value, context);
+   //  });
     return darkStatusBar(
       GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
