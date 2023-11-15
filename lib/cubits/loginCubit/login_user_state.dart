@@ -10,22 +10,31 @@ class LoginUserInitialState extends LoginUserState {
 }
 
 class LoginUserSuccessState extends LoginUserState{
+   final LoginResponse response;
+    const LoginUserSuccessState(this.response);
   @override
   // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [response];
 
 }
-
+class LoginIncompleteRegistration extends LoginUserState {
+  final LoginIncomplete response;
+  const LoginIncompleteRegistration(this.response);
+  @override
+  List<Object> get props => [response];
+}
 class LoginUserErrorState extends LoginUserState{
+  final ApiResponse errorResponse;
+  const LoginUserErrorState( this.errorResponse);
   @override
   // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [errorResponse];
 
 }
 
 class LoginUserLoadingState extends LoginUserState{
   @override
   // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 
 }

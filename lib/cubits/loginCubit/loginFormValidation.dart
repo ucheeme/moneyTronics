@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../models/requests/LoginRequest.dart';
+
 class LoginFormValidation{
 
   final _clientIdSubject = BehaviorSubject<String>();
@@ -32,15 +34,15 @@ class LoginFormValidation{
           sink.addError('Please enter password');
         } else {
           sink.add(value);
-        }
+       }
       }
   );
-  // LoginRequest loginValidation(BuildContext context){
-  //   LoginRequest request = LoginRequest(
-  //       clientId: _clientIdSubject.stream.value,
-  //       clientSecret: _clientSecretSubject.stream.value
-  //   );
-  //   return request;
-  // }
+  LoginRequest loginValidation(BuildContext context){
+    LoginRequest request = LoginRequest(
+        clientId: _clientIdSubject.stream.value,
+        clientSecret: _clientSecretSubject.stream.value
+    );
+    return request;
+  }
 
 }
