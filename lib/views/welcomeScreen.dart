@@ -12,9 +12,6 @@ import '../UiUtil/textWidgets.dart';
 import '../utils/constants/Themes/colors.dart';
 //import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-
-
-
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 

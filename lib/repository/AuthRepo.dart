@@ -10,23 +10,6 @@ import '../models/response/LoginResponse.dart';
 
 class AuthRepo extends ApiRepository{
 
-  Future<Object> createUser(request) async {
-    var response = await postRequest(request, AppUrls.createUser, false, HttpMethods.post);
-    var r = handleSuccessResponse(response);
-    if (r is ApiResponse) {
-      if (r.success == true) {
-        AccountNumberResponse res = accountNumberResponseFromJson(json.encode(r.result?.data));
-        return res;
-      } else {
-        return r;
-      }
-    }
-    else {
-      handleErrorResponse(response);
-      return errorResponse!;
-    }
-  }
-
   Future<Object> login(request) async {
     var response = await postRequest(request, AppUrls.loginUser, false, HttpMethods.post);
     var r = handleSuccessResponse(response);

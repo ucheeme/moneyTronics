@@ -30,7 +30,8 @@ class _CustomTextFieldWithValidationState extends State<CustomTextFieldWithValid
     return Stack(clipBehavior: Clip.none,
       children: [
         Container(
-          height: _height,width: double.infinity,
+          height: _height,
+          width: double.infinity,
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(

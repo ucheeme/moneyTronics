@@ -31,7 +31,7 @@ class _LoginFirstTimeState extends State<LoginFirstTime> implements PostWidgetCa
     controller.cubit = context.read<LoginUserCubit>();
     controller.cubit.errorObs.listen((value){
          AppUtils.showSnack(value, context);
-      l});
+      });
     return darkStatusBar(
       GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -51,8 +51,10 @@ class _LoginFirstTimeState extends State<LoginFirstTime> implements PostWidgetCa
                   Expanded(child:
                   Padding(
                     padding: screenPadding(),
-                    child: SingleChildScrollView(child: Column(children: [
+                    child: SingleChildScrollView(
+                      child: Column(children: [
                       gapHeight(30.h),
+                      
                       StreamBuilder<String>(
                           stream: controller.cubit.validation.clientId,
                           builder: (context, snapshot) {

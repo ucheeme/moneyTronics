@@ -262,6 +262,31 @@ Column selectAccountColumn({required String title,required Widget pageView,requi
 
   ],);
 }
+Widget textFieldBorderWidget2(Widget widget, String title) {
+
+  return Container(
+    height: 57.h,
+    width: double.infinity,
+    child: InputDecorator(
+      decoration: InputDecoration(
+
+        contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
+        labelText: title,
+        labelStyle: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w400,
+            fontFamily: "HKGroteskMedium",
+            fontSize: 15.sp),
+        enabledBorder: OutlineInputBorder(
+          gapPadding: 2,
+          borderSide:  BorderSide(color: AppColors.moneyTronicsBlue,width: 0.5.h),
+          borderRadius: BorderRadius.circular(15.r),
+        ),
+      ),
+      child: widget,
+    ),
+  );
+}
 
 ExpandingDotsEffect customIndicatorEffect() {
   return ExpandingDotsEffect(

@@ -4,8 +4,6 @@ class Assets {
 
   static const String assetsIconsActiveBiometrics = 'assets/icons/active_biometrics.png';
   static const String assetsIconsLockFill = 'assets/icons/lockFill.png';
-  static const String boldLock = 'assets/icons/Icon/Security/vuesax/bold/lock.png';
-  static const String essentialTagCross = 'assets/icons/Icon/Essential/tag-cross.png';
   static const String fontsHkGroteskMedium = 'assets/fonts/hk_grotesk_medium.otf';
   static const String fontsHkGroteskRegular = 'assets/fonts/hk_grotesk_regular.otf';
   static const String fontsHkGroteskSemiBold = 'assets/fonts/hk_grotesk_semi_bold.otf';
@@ -26,6 +24,7 @@ class Assets {
   static const String iconsCreateIcon = 'assets/icons/create_icon.png';
   static const String iconsCreditIcon = 'assets/icons/credit_icon.png';
   static const String iconsDebitIcon = 'assets/icons/debit_icon.png';
+  static const String iconsDownload = 'assets/icons/download.png';
   static const String iconsEye = 'assets/icons/eye.png';
   static const String iconsEyeSlash = 'assets/icons/eye_slash.png';
   static const String iconsFaceScan = 'assets/icons/face_scan.png';
@@ -43,10 +42,13 @@ class Assets {
   static const String iconsLockTwo = 'assets/icons/lock_two.png';
   static const String iconsProfile = 'assets/icons/profile.png';
   static const String iconsSearch = 'assets/icons/search.png';
+  static const String iconsShare = 'assets/icons/share.png';
   static const String iconsSignOut = 'assets/icons/sign_out.png';
+  static const String iconsSterlingBank = 'assets/icons/sterling_bank.png';
   static const String iconsTransfer = 'assets/icons/transfer.png';
   static const String iconsUser = 'assets/icons/user.png';
   static const String iconsUserAdd = 'assets/icons/user_add.png';
+  static const String lottiesSucessful = 'assets/lotties/sucessful.json';
   static const String picturesMFG = 'assets/pictures/MFG.png';
   static const String picturesNewWelcomeOne = 'assets/pictures/newWelcome_one.png';
   static const String picturesNewWelcomeThree = 'assets/pictures/newWelcome_three.png';

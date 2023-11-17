@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:moneytronic/controllers/Controller/signupController.dart';
@@ -27,7 +28,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child: Scaffold(
         backgroundColor: AppColors.whiteFA,
         body: Column(children: [
-          appBarBackSignUp(title: AppStrings.signUpHeaderText,subText: AppStrings.signUpSubText,
+         // Gap(20),
+         appBarBackSignUp(title: AppStrings.signUpHeaderText,subText: AppStrings.signUpSubText,
               backTap: (){Navigator.pop(context);}),
           Expanded(child:
           Padding(

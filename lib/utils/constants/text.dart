@@ -20,7 +20,7 @@ class AppStrings{
   //Login&Signup&CreateAccount
   static const String loginText ="Login";
   static const String signUpText ="Sign up";
-  static const String createAcctText ="create a MoneyTronicMFB account";
+  static const String createAcctText ="Create a MoneyTronicMFB account";
   static const String enterUserNameEmail= "Enter your username or email";
   static const String enterPassword= "Enter password";
   static const String proceedText= 'Proceed';
@@ -44,7 +44,16 @@ class AppStrings{
   static const String signUpHeaderText ="Join MoneyTronics MFB Today";
   static const String signUpSubText ="Sign up now to experience seamless banking, "
       "manage your finances, and explore a world of possibilities.";
+  static const String welcomeText ="Welcome";
+  static const String kindlyFillForm ="Kindly fill the form below to get an account";
+  static const String enterLastNameText ="Enter your last name";
+  static const String enterFirstNameText="Enter your first name";
+  static const String enterDateOFBirthText="Enter date of birth";
+  static const String enterEmailText="Enter your e-mail address";
+  static const String enterPhoneText="Enter your phone number";
+  static const String selectGenderext="Select gender ";
 
+  //
 
 
 

@@ -1,6 +1,10 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:uuid/uuid.dart';
 
+import '../../models/requests/CreateAccountRequest.dart';
+import '../../utils/DeviceUtil.dart';
 import '../../utils/appUtil.dart';
 
 class CreateUserFormValidation {
@@ -8,6 +12,7 @@ class CreateUserFormValidation {
   final _lastNameSubject = BehaviorSubject<String>();
   final _middleNameSubject = BehaviorSubject<String>();
   final _emailSubject = BehaviorSubject<String>();
+  final _dateOfBirthSubject = BehaviorSubject<String>();
   final _phoneSubject = BehaviorSubject<String>();
   final _bvnSubject = BehaviorSubject<String>();
   final _genderSubject = BehaviorSubject<String>();
@@ -23,6 +28,8 @@ class CreateUserFormValidation {
   Function(String) get setMiddleName => _middleNameSubject.sink.add;
 
   Function(String) get setEmail => _emailSubject.sink.add;
+
+  Function(String) get setDateOfBirth => _dateOfBirthSubject.sink.add;
 
   Function(String) get setPhone => _phoneSubject.sink.add;
 
@@ -51,6 +58,8 @@ class CreateUserFormValidation {
   Stream<String> get gender => _genderSubject.stream.transform(validateGender);
 
   Stream<String> get bvn => _bvnSubject.stream.transform(validateBvn);
+
+  Stream<String> get dateOfBirth => _dateOfBirthSubject.stream.transform(validateDateOfBirth);
 
   Stream<String> get username =>
       _usernameSubject.stream.transform(validateUsername);
@@ -108,10 +117,11 @@ class CreateUserFormValidation {
         if (value.length < 2) {
           sink.addError('Must be at Least 2 characters');
         } else {
-          sink.add(value);
+         sink.add(value);
         }
-      }
+     }
   );
+
   final validatePhoneNumber = StreamTransformer<String, String>.fromHandlers(
       handleData: (value, sink) {
         if (!AppUtils().validateMobile(value)) {
@@ -130,6 +140,17 @@ class CreateUserFormValidation {
         }
       }
   );
+
+  final validateDateOfBirth = StreamTransformer<String, String>.fromHandlers(
+    handleData: (value, sink){
+      if(value.length<2){
+        sink.addError("Must be at least 2 characters");
+      }else{
+        sink.add(value);
+      }
+    }
+  );
+
   final validateBvn = StreamTransformer<String, String>.fromHandlers(
       handleData: (value, sink) {
         if (value.length != 11) {
@@ -149,6 +170,7 @@ class CreateUserFormValidation {
       }
   );
 
+
   StreamTransformer<String, String>  validateRetypePassword() {
     return StreamTransformer<String,
         String>.fromHandlers(
@@ -161,26 +183,26 @@ class CreateUserFormValidation {
         }
     );
   }
-  // CreateAccountRequest createUser(BuildContext context){
-  //   CreateAccountRequest request = CreateAccountRequest(
-  //       username: _usernameSubject.stream.value,
-  //       password: _passwordSubject.stream.value,
-  //       confirmPassword: _passwordSubject.stream.value,
-  //       phoneNumber: _phoneSubject.stream.value,
-  //       surname: _lastNameSubject.stream.value,
-  //       firstname: _firstNameSubject.stream.value,
-  //       othername: _middleNameSubject.stream.value,
-  //       email: _emailSubject.stream.value,
-  //       bvn: _bvnSubject.stream.value,
-  //       gender: "",
-  //       referral: "",
-  //       title: "",
-  //       deviceId: const Uuid().v1(),
-  //       deviceModel: deviceModel,
-  //       deviceOs: platformOS, deviceName: deviceName, deviceType: 'mobile'
-  //   );
-  //   return request;
-  // }
+  CreateAccountRequest createUser(BuildContext context){
+    CreateAccountRequest request = CreateAccountRequest(
+        username: _usernameSubject.stream.value,
+        password: _passwordSubject.stream.value,
+        confirmPassword: _passwordSubject.stream.value,
+        phoneNumber: _phoneSubject.stream.value,
+        surname: _lastNameSubject.stream.value,
+        firstname: _firstNameSubject.stream.value,
+        othername: _middleNameSubject.stream.value,
+        email: _emailSubject.stream.value,
+        bvn: _bvnSubject.stream.value,
+        gender: "",
+        referral: "",
+        title: "",
+        deviceId: const Uuid().v1(),
+        deviceModel: deviceModel,
+        deviceOs: platformOS, deviceName: deviceName, deviceType: 'mobile'
+    );
+    return request;
+  }
   String getUsername(){
     return _usernameSubject.stream.value;
   }

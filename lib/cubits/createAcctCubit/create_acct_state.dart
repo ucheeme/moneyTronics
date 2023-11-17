@@ -15,11 +15,15 @@ class CreateAcctLoadingState extends CreateAcctState {
 }
 
 class CreateAcctErrorState extends CreateAcctState {
+  final ApiResponse errorResponse;
+  const CreateAcctErrorState(this.errorResponse);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [errorResponse];
 }
 
 class CreateAcctSuccessfulState extends CreateAcctState {
+ final AccountNumberResponse response;
+ CreateAcctSuccessfulState(this.response);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [response];
 }
