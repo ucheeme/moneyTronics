@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:moneytronic/ApiService/ApiService.dart';
+import 'package:moneytronic/models/requests/CreateAccountRequest.dart';
 import 'package:moneytronic/repository/apiRepository.dart';
 
 import '../ApiService/ApiUrl.dart';
@@ -9,7 +10,7 @@ import '../models/response/ApiResponse.dart';
 import '../models/response/LoginResponse.dart';
 
 class CreateUserAcctRepo extends ApiRepository{
-  Future<Object> createUser(request) async {
+  Future<Object> createUser(CreateAccountRequest request) async {
     var response = await postRequest(request, AppUrls.createUser, false, HttpMethods.post);
     var r = handleSuccessResponse(response);
     if (r is ApiResponse) {

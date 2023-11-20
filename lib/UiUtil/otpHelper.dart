@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneytronic/UiUtil/customWidgets.dart';
 import 'package:moneytronic/UiUtil/textWidgets.dart';
+import 'package:moneytronic/utils/constants/text.dart';
 
 import '../utils/constants/Themes/colors.dart';
 
@@ -92,8 +93,9 @@ Padding number(zero,one,two,three,four,five,six,seven,eight,nine,cancel,extraBtn
     ),
   );
 }
-Padding numberWithBiometrics(
-    zero,one,two,three,four,five,six,seven,eight,nine,cancel,extraBtn) {
+
+Padding numberWithBiometrics(zero,one,two,three,four,five,six,seven,eight,
+    nine,cancel,extraBtn) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 50.w),
     child: Column(
@@ -134,6 +136,7 @@ Padding numberWithBiometrics(
     ),
   );
 }
+
 SizedBox margin() => gapHeight(40.h);
 GestureDetector numberBtn(tap,title) {
   return GestureDetector(
@@ -183,7 +186,8 @@ Container secureTxt() {
           children: [
             Image.asset("assets/icons/lockFill.png",width: 16.w,height: 16.h,),
             gapWidth(5.w),
-            ctmTxtGroteskMid("This keeps your account secured.",AppColors.moneyTronicsBlue,14.sp,maxLines: 1),
+            ctmTxtGroteskMid(AppStrings.accountSecured,
+                AppColors.moneyTronicsBlue,14.sp,maxLines: 1),
 
           ],),
       ),

@@ -8,6 +8,7 @@ import 'package:moneytronic/UiUtil/textWidgets.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../cubits/otpCubit/otp_cubit.dart';
+import '../models/requests/RegistrationVerificationRequest.dart';
 import '../utils/appUtil.dart';
 import '../utils/constants/Themes/colors.dart';
 import '../utils/constants/text.dart';
@@ -31,15 +32,15 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   void initState() {
     _checkOtp();
-    // Listen for clipboard changes
-    // Clipboard.getData('text/plain').then((clipboardData) {
-    //   if (clipboardData != null && clipboardData.text != null) {
-    //     setState(() {
-    //       pinCode.clear();
-    //       pinCode.write(clipboardData.text!);
-    //     });
-    //   }
-    // });
+   //Listen for clipboard changes
+    Clipboard.getData('text/plain').then((clipboardData) {
+      if (clipboardData != null && clipboardData.text != null) {
+        setState(() {
+          pinCode.clear();
+          pinCode.write(clipboardData.text!);
+        });
+      }
+    });
     super.initState();
   }
   @override
@@ -50,7 +51,7 @@ class _OtpScreenState extends State<OtpScreen> {
         if (state is OtpCompleteState) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             Future.delayed(Duration.zero, (){
-            //  cubit.completeRegistration(RegVerificationRequest(username: widget.username ?? "", otpCode: pinCode.toString()));
+            cubit.completeRegistration(RegVerificationRequest(username: widget.username ?? "", otpCode: pinCode.toString()));
             });
           });
         }

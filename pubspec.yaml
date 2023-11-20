@@ -97,6 +97,7 @@ flutter:
   assets:
      - assets/pictures/
      - assets/icons/
+     - assets/lotties/
      - assets/icons/active_biometrics.png
      - assets/icons/lockFill.png
   #   - images/a_dot_ham.jpeg

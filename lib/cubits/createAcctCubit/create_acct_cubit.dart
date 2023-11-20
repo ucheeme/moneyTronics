@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../models/requests/CreateAccountRequest.dart';
 import '../../models/response/AccountNumberResponse.dart';
 import '../../models/response/ApiResponse.dart';
 import '../../repository/createAcctRepo.dart';
@@ -18,10 +19,12 @@ class CreateAcctCubit extends Cubit<CreateAcctState> {
   }
 
 
-  handleAccountCreateEvent(event) async{
+  handleAccountCreateEvent(CreateAccountRequest event) async{
+
     emit(CreateAcctLoadingState());
     try {
-      final response = await repo.createUser(event.request );
+      logReport(event);
+      final response = await repo.createUser(event );
       if (response is AccountNumberResponse) {
         emit(CreateAcctSuccessfulState(response));
         AppUtils.debug("success");

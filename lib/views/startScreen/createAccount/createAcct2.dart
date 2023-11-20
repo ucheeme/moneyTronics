@@ -13,7 +13,6 @@ import '../../../utils/constants/Themes/colors.dart';
 
 class CreateAccountScreen2 extends StatefulWidget {
   const CreateAccountScreen2({Key? key}) : super(key: key);
-
   @override
   State<CreateAccountScreen2> createState() => _CreateAccountScreen2State();
 }
@@ -54,7 +53,9 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2>  {
               bloc.initial();
             }
             if (state is CreateAcctErrorState){
-              var msg = (state.errorResponse.result?.error?.validationMessages?.isNotEmpty == true) ? (state.errorResponse.result?.error?.validationMessages?[0] ?? "") : state.errorResponse.result?.message ?? "error occurred";
+              var msg = (state.errorResponse.result?.error?.validationMessages?.isNotEmpty == true)
+                  ? (state.errorResponse.result?.error?.validationMessages?[0])
+                  : state.errorResponse.result?.message ?? "error occurred";
               // AppUtils.postWidgetBuild(() {
               //   AppUtils.showSnack(msg, context);
               // });
@@ -67,7 +68,7 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2>  {
             } //1400000105
             return AppUtils().loadingWidget2(
               child: Column(children: [
-                appBarBackAndTxt(title: "Create Cedar MFB account",
+                appBarBackAndTxt(title: "Create MoneyTronics MFB account",
                     backTap: (){Navigator.pop(context);}),
                 Expanded(child:
                 Padding(
@@ -129,7 +130,7 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2>  {
                         stream: bloc.validation.userInfo2FormValid,
                         builder: (context, snapshot) {
                           return blueBtn(title: 'Proceed',isEnabled: snapshot.hasData, tap: () {
-                            !snapshot.hasData ? null : bloc.validation.createUser(context);
+                            !snapshot.hasData ? null : bloc.handleAccountCreateEvent(bloc.validation.createUser(context));
                             // _receiptBottomSheet();
                             // Navigator.push(context, MaterialPageRoute(builder: (context) =>
                             // const ForgotPasswordScreen()));

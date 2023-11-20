@@ -82,6 +82,7 @@ GestureDetector blueBtn({required String title, isEnabled, required Function()ta
   return GestureDetector(
     onTap: tap,
     child: Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
       height: 60.h,width: 398.w,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.r),
@@ -210,7 +211,33 @@ Container appBarTxtOnly({required String title,}) {
     ),
   );
 }
+Container appBarBackAndImg({required String title,required Function backTap}) {
+  return Container(
+    padding:EdgeInsets.fromLTRB(16.w, 40.h, 16.w, 15.h),
+    decoration: const BoxDecoration(
+      color: AppColors.white,
+    ),
+    child: Container(
+      height: 90.h,
+      decoration: const BoxDecoration(
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          backArrow(backTap,),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(child: Image.asset("assets/pictures/mfbLogo.png", width: 150.w,
+                height: 86.h,)),
+            ),
+          ),
+          gapWidth(24.0)
 
+        ],),
+    ),
+  );
+}
 GestureDetector backArrow(tap) {
   return GestureDetector(onTap: tap,child: Image.asset("assets/icons/arrow_back.png",
     width: 24.w,height: 24.h,));

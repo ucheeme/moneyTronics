@@ -48,32 +48,24 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>  {
         backgroundColor: AppColors.whiteFA,
         body: BlocBuilder<CreateAcctCubit, CreateAcctState>(
           builder: (context, state) {
-            if (state is CreateAcctSuccessfulState){
-              //   AppUtils.postWidgetBuild(() => openOtpScreen());
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Future.delayed(Duration.zero, (){
-                  // AppUtils.showSnack(msg, context);
-                  openOtpScreen();
-                });
-              });
-
-            }
-            if (state is CreateAcctErrorState){
-             // var msg = (state.errorResponse.result?.error?.validationMessages?.isNotEmpty == true) ? (state.errorResponse.result?.error?.validationMessages?[0] ?? "") : state.errorResponse.result?.message ?? "error occurred";
-              // AppUtils.postWidgetBuild(() {
-              //   AppUtils.showSnack(msg, context);
-              // });
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Future.delayed(Duration.zero, (){
-                 // AppUtils.showSnack(msg, context);
-                });
-              });
-             // bloc.initial();
-            } //1400000105
-            return AppUtils().loadingWidget2(
-              child: Column(children: [
-                appBarBackAndTxt(title: AppStrings.createAcctText,
-                    backTap: (){Navigator.pop(context);}),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  child: appBarBackAndImg(title: AppStrings.createAcctText,
+                      backTap: (){Navigator.pop(context);}),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ctmTxtGroteskMid(AppStrings.welcomeText,
+                        AppColors.black33,24.sp, weight: FontWeight.w800),
+                    gapHeight(20.h),
+                    ctmTxtGroteskMid(AppStrings.kindlyFillForm,AppColors.black1A,16.sp,maxLines: 3),
+                  ],
+                ),),
                 Expanded(child:
                 Padding(
                   padding: screenPadding(),
@@ -81,9 +73,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>  {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                      ctmTxtGroteskMid(AppStrings.welcomeText,AppColors.black33,24.sp,weight: FontWeight.w700),
-                      ctmTxtGroteskMid(AppStrings.kindlyFillForm,AppColors.black1A,16.sp,maxLines: 3),
-                    gapHeight(50.h),
+                    gapHeight(30.h),
                     StreamBuilder<String>(
                         stream: controller.cubit.validation.firstName,
                         builder: (context, snapshot) {
@@ -167,9 +157,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>  {
                         //       setState(() {});
                         //     }),
                     MediaQuery.of(context).viewInsets.bottom > 0.0 ?
-                    gapHeight(50.h): gapHeight(150.h),// if keyboard is open
+                    gapHeight(50.h): gapHeight(50.h),// if keyboard is open
                     StreamBuilder<Object>(
-                        stream: controller.cubit.validation.userInfo2FormValid,
+                        stream: controller.cubit.validation.userInfoFormValid,
                         builder: (context, snapshot) {
                           return blueBtn(title: 'Proceed',isEnabled: snapshot.hasData, tap: () {
                             !snapshot.hasData ? null :
@@ -181,8 +171,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>  {
                     gapHeight(70.h),
                   ],),),
                 ))
-              ],), isLoading: state is CreateAcctLoadingState, context: context,
-            );
+              ],);
+
           },
         ),
       ),
@@ -212,12 +202,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>  {
       }
     });
   }
-  void openOtpScreen()async {
-    var pin = await Navigator.push(context, MaterialPageRoute(builder: (context) =>
-        OtpScreen(username: controller.cubit.validation.getUsername(),)));
-    if (pin != null){
-      AppUtils.debug("pin entered $pin");
-    }
-  }
+
 }
 

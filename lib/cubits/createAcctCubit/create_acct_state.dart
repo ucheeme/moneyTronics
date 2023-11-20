@@ -27,3 +27,11 @@ class CreateAcctSuccessfulState extends CreateAcctState {
   @override
   List<Object> get props => [response];
 }
+
+class CreateUserEvent  extends CreateAcctState {
+  final CreateAccountRequest request;
+  const CreateUserEvent(this.request);
+
+  @override
+  List<Object?> get props => [];
+}
