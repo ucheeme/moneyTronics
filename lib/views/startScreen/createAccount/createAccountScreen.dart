@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:intl/intl.dart';
+import 'package:moneytronic/UiUtil/customRadioButton.dart';
 import 'package:moneytronic/controllers/Controller/createAcctController.dart';
 import 'package:moneytronic/cubits/createAcctCubit/create_acct_cubit.dart';
 import 'package:moneytronic/utils/constants/text.dart';
@@ -73,7 +76,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>  {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                    gapHeight(30.h),
+                        gapHeight(20.h),
                     StreamBuilder<String>(
                         stream: controller.cubit.validation.firstName,
                         builder: (context, snapshot) {
@@ -133,36 +136,60 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>  {
                             }
                         ),
                         gapHeight(28.h),
-                        StreamBuilder<Object>(
-                            stream: controller.cubit.validation.gender,
-                            builder: (context, snapshot) {
-                              return GestureDetector(
-                                onTap: (){
-                                  genderSelection();
-                                },
-                                child: CustomTextFieldWithValidation(
-                                  controller:controller.genderController, title: "Enter gender",
-                                  details: "", inputType:TextInputType.text,
-                                  onChange: controller.cubit.validation.setGender,
-                                  enabled: false,
-                                  error: snapshot.hasError ? snapshot.error.toString() : "",
-                                ),
-                              );
-                            }
-                        ),
+                        DateTextField(controller:controller.dateController, title:"Enter date of birth",
+                           tap: (){
+                              _selectDate(context);
+                             setState(() {});
+                            }),
                         gapHeight(28.h),
-                        // DateTextField(controller:controller.dateController, title:"Set date",
-                        //     tap: (){
-                        //       _selectDate(context);
-                        //       setState(() {});
-                        //     }),
+                        ctmTxtGroteskMid("Select gender", AppColors.black, 16.sp, weight: FontWeight.w500),
+                        gapHeight(25.h),
+                        Row(
+                          children: [
+                            GestureDetector(
+                                onTap: (){
+                                  if(controller.isActiveFemale){
+                                    setState(() {
+                                      controller.isActiveFemale=false;
+                                      controller.isActive= true;
+                                    });
+                                  }else{
+                                    setState(() {
+                                      controller.isActive=true;
+                                    });
+
+                                  }
+                                  controller.cubit.validation.setGender("Male");
+                                },
+                                child: CustomRadioButton(title: "Male", isActive: controller.isActive)),
+                            const Gap(20),
+                            GestureDetector(
+                                onTap: (){
+                                  if(controller.isActive){
+                                    setState(() {
+                                      controller.isActive=false;
+                                      controller.isActiveFemale= true;
+
+                                    });
+                                  }else{
+                                    setState(() {
+                                      controller.isActiveFemale=true;
+                                    });
+
+                                  }
+                                  controller.cubit.validation.setGender("Female");
+                                },
+                                child: CustomRadioButton(title: "Female", isActive: controller.isActiveFemale)),
+                          ],
+                        ),
+                       // gapHeight(28.h),
                     MediaQuery.of(context).viewInsets.bottom > 0.0 ?
                     gapHeight(50.h): gapHeight(50.h),// if keyboard is open
                     StreamBuilder<Object>(
                         stream: controller.cubit.validation.userInfoFormValid,
                         builder: (context, snapshot) {
                           return blueBtn(title: 'Proceed',isEnabled: snapshot.hasData, tap: () {
-                            !snapshot.hasData ? null :
+                           !snapshot.hasData ? null :
                             Navigator.push(context, MaterialPageRoute(builder: (context) =>
                             const CreateAccountScreen2()));
                           });
@@ -180,19 +207,27 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>  {
   }
 
   _selectDate(BuildContext context) async {
-    var date = await showDialog(context: context,
-        builder: (BuildContext context) {
-          return const Dialog(insetPadding: EdgeInsets.symmetric(horizontal: 10),
-              child: CustomDatePicker());
-        });
+
+    var date = await Get.bottomSheet(
+      backgroundColor: AppColors.white,
+      isDismissible: true,
+      SizedBox(
+        height: 600.h,
+        child: CustomDatePicker(),
+      )
+    );
+
     if(date is String){
       if(date.isNotEmpty){
         setState(() {
+          controller.dateController.text= date;
         });}
     }
     else{
+
     }
   }
+
   void genderSelection() async{
     await openBottomSheet(context, SelectTextBottomSheet(titleText: "Select gender", items: [SelectionModal(title: "Male", id: "1"), SelectionModal(title: "Female", id: "2")], height: 400.h, ),)
         .then((value) {

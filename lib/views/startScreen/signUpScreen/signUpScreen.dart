@@ -5,12 +5,14 @@ import 'package:gap/gap.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:moneytronic/controllers/Controller/signupController.dart';
+import 'package:moneytronic/views/startScreen/login/loginFirstTime.dart';
 
 import '../../../UiUtil/customTextfield.dart';
 import '../../../UiUtil/customWidgets.dart';
 import '../../../UiUtil/otpScreen.dart';
 import '../../../utils/constants/Themes/colors.dart';
 import '../../../utils/constants/text.dart';
+import '../loginOrSignUpScreen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -30,7 +32,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
         body: Column(children: [
          // Gap(20),
          appBarBackSignUp(title: AppStrings.signUpHeaderText,subText: AppStrings.signUpSubText,
-              backTap: (){Navigator.pop(context);}),
+              backTap: (){ Navigator.push(context,
+                  MaterialPageRoute(builder: (context) =>
+                  const LoginOrSignUpScreen()
+                    //  const Login()
+                  ));}),
           Expanded(child:
           Padding(
             padding: screenPadding(),
@@ -44,7 +50,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               gapHeight(28.h),
               CustomTextFieldWithValidation(
                 controller: controller.accountNumberControl, title: AppStrings.enterAcctNum,
-                details: "UCHE EMEKA VICTOR", inputType:TextInputType.number,
+                details: "", inputType:TextInputType.number,
                 onChange: (value){},
               ),
               gapHeight(28.h),
@@ -61,7 +67,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               }),
               gapHeight(50.h),
               alreadyHaveAccount(tap:(){
-
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    const LoginFirstTime()));
               }),
               gapHeight(70.h),
 

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:moneytronic/UiUtil/customWidgets.dart';
 import 'package:moneytronic/UiUtil/textWidgets.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -31,7 +33,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               view: DateRangePickerView.month,
               headerHeight: 58.h,
               headerStyle: DateRangePickerHeaderStyle(
-                  backgroundColor: AppColors.greenEB,
+                  backgroundColor: AppColors.moneyTronicsSkyBlue,
                   textAlign: TextAlign.center,
                   textStyle: TextStyle(
                     color: AppColors.black09,
@@ -43,15 +45,15 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               toggleDaySelection: false,
               showNavigationArrow: true,
               //showActionButtons: true,
-              selectionColor: AppColors.greenD8,
+              selectionColor: AppColors.moneyTronicsSkyBlue,
               todayHighlightColor: AppColors.black4D,
               selectionShape: DateRangePickerSelectionShape.rectangle,
               selectionRadius: 15.r,
               selectionTextStyle:TextStyle(
-                color: AppColors.green0C,
-                fontSize: 16.sp,
+                color: AppColors.moneyTronicsBlue,
+                fontSize: 20.sp,
                 fontFamily: 'HKGroteskRegular',
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w800,
               ),
               monthCellStyle: DateRangePickerMonthCellStyle(
                   cellDecoration: BoxDecoration(
@@ -107,9 +109,10 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           dateTextField(),
           gapHeight(21.h),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25.w),
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
             child: blueBtn(title: "Set date", tap: (){
-              Navigator.pop(context,dateControl.text);
+            //  Navigator.pop(context,dateControl.text);
+              Get.back(result: dateControl.text);
             }),
           ),
           gapHeight(25.h),
@@ -130,7 +133,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.r),
               border: Border.all(
-                color: AppColors.green0C,
+                color: AppColors.moneyTronicsSkyBlue,
                 width: 0.5.h,
               ),
             ),
@@ -138,7 +141,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               enabled: false,
               controller: dateControl,
               cursorHeight: 15.h,
-              cursorColor:AppColors.green2B,
+              cursorColor:AppColors.moneyTronicsSkyBlue,
               style: TextStyle(
                 color: AppColors.black, fontSize: 16.sp,
                 fontFamily: 'HKGroteskMedium',

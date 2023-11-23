@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneytronic/UiUtil/customWidgets.dart';
 
+import '../../models/response/Bank.dart';
 import '../../utils/constants/Themes/colors.dart';
 import '../searchTextField.dart';
 import '../textWidgets.dart';
 
 class SelectBankBottomSheet extends StatefulWidget {
-  const SelectBankBottomSheet({super.key});
+  final List<Bank> banks;
+  const SelectBankBottomSheet({required this.banks, super.key});
 
   @override
   State<SelectBankBottomSheet> createState() => _SelectBankBottomSheetState();
@@ -22,11 +24,10 @@ class _SelectBankBottomSheetState extends State<SelectBankBottomSheet> {
       child: Container(
         width: double.infinity,height: 742.h,
         color: AppColors.white,
-        // padding: EdgeInsets.symmetric(horizontal: 24.w,vertical: 16.h),
         child: Column(
           children: [
             (MediaQuery.of(context).viewInsets.bottom != 0)?
-            gapHeight(30.h):gapHeight(10.h),
+            gapH(30.h):gapH(10.h),
             Container(
               width: double.infinity,height: 100.h,
               padding: EdgeInsets.fromLTRB(16.w, 30.h,16.w,15.h),
@@ -39,23 +40,23 @@ class _SelectBankBottomSheetState extends State<SelectBankBottomSheet> {
             ),
             Expanded(
               child: ListView.builder(
-                  itemCount: 15,
+                  itemCount: widget.banks.length,
                   itemBuilder: (context, index) {
-                    return iconAndTextWidget("assets/icons/sterling_bank.png",
-                        "title",(){
-                          Navigator.pop(context, "First Bank");
-                        });
+                    return iconAndTextWidget(
+                        widget.banks[index].bankname ?? "",(){
+                      Navigator.pop(context,  widget.banks[index]);
+                    });
                   }
               ),
             ),
-            gapHeight(22.h),
+            gapH(22.h),
           ],
         ),
       ),
     );
   }
 
-  Widget iconAndTextWidget(image,title,tap) {
+  Widget iconAndTextWidget(String title,tap) {
     return GestureDetector(onTap: tap,
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 16.w,vertical: 12.5.h),
@@ -67,16 +68,13 @@ class _SelectBankBottomSheetState extends State<SelectBankBottomSheet> {
         child: Row(
           children: [
             Container(
-              width: 40.w,height: 40.h,
-              decoration: BoxDecoration(
-                color: AppColors.white,borderRadius: BorderRadius.circular(9.r),
+              width: 34.w,height: 32.h,
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle, color: AppColors.green24
               ),
-              child: Center(child: Image.asset(image,
-                width: 34.w,height: 34.h,
-              ),
-              ),
+              child: Center(child: ctmTxtGroteskMid(title[0].toUpperCase(),AppColors.white,12.5.sp),),
             ),
-            gapWidth(15.w),
+            gapW(15.w),
             SizedBox(width: 200.w,
                 child: ctmTxtGroteskMid(title,AppColors.black,18.sp,maxLines: 1))
           ],),

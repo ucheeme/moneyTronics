@@ -10,6 +10,8 @@ String deviceId = "";
 String deviceName = "";
 String platformOS = "";
 String deviceModel = "";
+String deviceOs = "";
+String deviceOs2 = "";
 
  class DeviceUtils{
   static  var uuid = const Uuid();
@@ -21,12 +23,14 @@ String deviceModel = "";
           deviceName = info.manufacturer;
           deviceModel = info.model;
           platformOS = "Android";
+          deviceOs = "Android";
           AppUtils.debug("platform is Android");
         } else if (Platform.isIOS) {
           IosDeviceInfo info = await deviceInfo.iosInfo;
           deviceId = info.identifierForVendor!;
           deviceName = info.name+"' "+info.utsname.machine;
           deviceModel = info.model;
+          deviceOs = "iOS";
           platformOS = info.systemName+" "+info.systemVersion;
         }
       }

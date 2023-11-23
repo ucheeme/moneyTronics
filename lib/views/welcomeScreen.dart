@@ -53,7 +53,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 children: [
                   SizedBox(height: 780.h,
                     child: PageView(controller: _controller.controller2,
-                      scrollDirection: Axis.vertical,
+                      scrollDirection: Axis.horizontal,
                       children: [
                         Image.asset("assets/pictures/newWelcome_one.png",
                           width: double.infinity,

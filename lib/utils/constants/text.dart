@@ -53,8 +53,12 @@ class AppStrings{
   static const String enterPhoneText="Enter your phone number";
   static const String selectGenderext="Select gender ";
 
-  //keypad design
+  //keypad design and Account Created
   static const String accountSecured ="This keeps your account secured.";
+  static const String acctCongratulation ="Congratulation";
+  static const String heresYourAcctNum ="Here is your account number";
+  static const String acctNumPreText ="MW 1 Current acct ";
+
 
 
 

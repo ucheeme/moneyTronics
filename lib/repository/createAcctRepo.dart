@@ -18,6 +18,7 @@ class CreateUserAcctRepo extends ApiRepository{
         AccountNumberResponse res = accountNumberResponseFromJson(json.encode(r.result?.data));
         return res;
       } else {
+        handleErrorResponse(response);
         return r;
       }
     }

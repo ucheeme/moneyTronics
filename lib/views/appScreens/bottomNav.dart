@@ -26,7 +26,7 @@ class _BottomNavigatorState extends State<BottomNavigator>  with TickerProviderS
   }
 
   List<Widget> screens = [
-    const DashboardScreen(),
+    const DashBoardScreen(),
     const UserCardScreen(),
     const TransactionHistoryScreen(),
     const ProfileScreen()

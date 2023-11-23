@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:moneytronic/UiUtil/customWidgets.dart';
+import 'package:moneytronic/utils/userUtil.dart';
 
 import '../../../UiUtil/customTextfield.dart';
 import '../../../UiUtil/otpScreen.dart';
@@ -55,13 +56,13 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2>  {
             if (state is CreateAcctErrorState){
               var msg = (state.errorResponse.result?.error?.validationMessages?.isNotEmpty == true)
                   ? (state.errorResponse.result?.error?.validationMessages?[0])
-                  : state.errorResponse.result?.message ?? "error occurred";
+                  : state.errorResponse.result?.message ??"error occurred";
               // AppUtils.postWidgetBuild(() {
               //   AppUtils.showSnack(msg, context);
               // });
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 Future.delayed(Duration.zero, (){
-                  AppUtils.showSnack(msg, context);
+                 AppUtils.showSnack(msg, context);
                 });
               });
               bloc.initial();
@@ -130,7 +131,10 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2>  {
                         stream: bloc.validation.userInfo2FormValid,
                         builder: (context, snapshot) {
                           return blueBtn(title: 'Proceed',isEnabled: snapshot.hasData, tap: () {
-                            !snapshot.hasData ? null : bloc.handleAccountCreateEvent(bloc.validation.createUser(context));
+                            //logReport("case");
+                            !snapshot.hasData ? null :
+                            bloc.handleAccountCreateEvent(
+                                bloc.validation.createUser(context));
                             // _receiptBottomSheet();
                             // Navigator.push(context, MaterialPageRoute(builder: (context) =>
                             // const ForgotPasswordScreen()));
@@ -150,6 +154,8 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2>  {
 
 
   void openOtpScreen()async {
+    await SharedPref.save(SharedPrefKeys.createAccountUserID, bloc.validation.getUsername());
+    await SharedPref.save(SharedPrefKeys.createAccountUserPassword, bloc.validation.getUserPassKey());
     var pin = await Navigator.push(context, MaterialPageRoute(builder: (context) =>
         OtpScreen(username: bloc.validation.getUsername(),)));
     if (pin != null){

@@ -17,10 +17,30 @@ AnnotatedRegion<SystemUiOverlayStyle> darkStatusBar(child) {
     child: child,
   );
 }
+
+GestureDetector outlineBtn({required String title, isEnabled, required Function()tap}) {
+  return GestureDetector(
+    onTap: tap,
+    child: Container(
+      height: 60.h,
+      decoration: BoxDecoration(
+        color:AppColors.moneyTronicsSkyBlue,// Customize the color of the indicator
+        borderRadius: BorderRadius.circular(15.r),
+        border: Border.all(
+            color: AppColors.moneyTronicsBlue,
+            width:0.5.r
+        ),// Customize the border radius
+      ),
+      child: Center(child: ctmTxtGroteskMid(title, AppColors.moneyTronicsBlue, 18.sp, weight: FontWeight.w600),),
+    ),
+  );
+}
 EdgeInsets paddingWidth(width) => EdgeInsets.symmetric(horizontal: width);
 EdgeInsets paddingWidthHeigth(width,height) => EdgeInsets.symmetric(horizontal: width,vertical: height);
 SizedBox gapHeight(height) => SizedBox(height: height,);
+SizedBox gapH(height) => SizedBox(height: height,);
 SizedBox gapWidth(width) => SizedBox(width: width,);
+SizedBox gapW(width) => SizedBox(width: width,);
 Widget forwardBtn(tap) {
   return GestureDetector(
     onTap: tap,
@@ -82,7 +102,7 @@ GestureDetector blueBtn({required String title, isEnabled, required Function()ta
   return GestureDetector(
     onTap: tap,
     child: Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+      //margin: const EdgeInsets.symmetric(horizontal: 20.0),
       height: 60.h,width: 398.w,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.r),
@@ -219,8 +239,7 @@ Container appBarBackAndImg({required String title,required Function backTap}) {
     ),
     child: Container(
       height: 90.h,
-      decoration: const BoxDecoration(
-      ),
+     // color: Colors.amber,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -228,8 +247,9 @@ Container appBarBackAndImg({required String title,required Function backTap}) {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Center(child: Image.asset("assets/pictures/mfbLogo.png", width: 150.w,
-                height: 86.h,)),
+              child: Center(child: Image.asset("assets/pictures/mfbLogo.png",
+                width: 250.w,
+                height: 96.h,)),
             ),
           ),
           gapWidth(24.0)

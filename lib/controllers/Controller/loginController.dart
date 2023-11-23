@@ -15,6 +15,7 @@ class LoginController extends GetxController{
   TextEditingController userNameControl = TextEditingController();
   TextEditingController passwordControl = TextEditingController();
   late LoginUserCubit cubit;
+
   void stateChecker(LoginUserState state, BuildContext context) {
     if (state is LoginUserSuccessState){
       loginResponse = state.response;
@@ -31,7 +32,7 @@ class LoginController extends GetxController{
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Future.delayed(Duration.zero, (){
           // DashboardRepository().getUsersAccount();
-          // bloc.initial();
+          cubit.resetState();
         });
       });
     }

@@ -203,6 +203,10 @@ class CreateUserFormValidation {
     );
     return request;
   }
+  String getUserPassKey(){
+
+    return _passwordSubject.stream.value;
+  }
   String getUsername(){
     return _usernameSubject.stream.value;
   }

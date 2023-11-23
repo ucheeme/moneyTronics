@@ -41,7 +41,8 @@ class _SuccessAlertBottomSheetState extends State<SuccessAlertBottomSheet>  with
           //   width: 300.w,height: 300.h,fit: BoxFit.contain,
           // ),
           gapHeight(40.h),
-          Lottie.asset('assets/json/success.json', height: 250, width: 250),
+          Lottie.asset('assets/lotties/sucessful.json', height: 250.h,
+              width: 250.w),
           ctmTxtGroteskMid(widget.type, AppColors.black, 24.sp),
           gapHeight(15.h),
           SizedBox(width: 306.w,
@@ -65,7 +66,7 @@ class _SuccessAlertBottomSheetState extends State<SuccessAlertBottomSheet>  with
           onTap: shareTap,
           child: Column(
             children: [
-              greenIconHolder("assets/png/icons/download.png",),
+              greenIconHolder("assets/icons/download.png",),
               gapHeight(10.h),
               ctmTxtGroteskMid("Share",AppColors.black,16.sp)
             ],
@@ -90,13 +91,12 @@ class _SuccessAlertBottomSheetState extends State<SuccessAlertBottomSheet>  with
     return Container(
       width: 44.h,height: 44.h,
       decoration: BoxDecoration(
-          color: AppColors.greenD8,
+          color: AppColors.moneyTronicsSkyBlue,
           borderRadius: BorderRadius.circular(20.r)
       ),
       child: Center(child:
 
-
-      Image.asset(image,width: 24.w,height: 24.h, color:AppColors.green18 ,),
+      Image.asset(image,width: 24.w,height: 24.h, color:AppColors.moneyTronicsBlue ,),
       ),);
   }
 }

@@ -23,14 +23,13 @@ class CreateAcctCubit extends Cubit<CreateAcctState> {
 
     emit(CreateAcctLoadingState());
     try {
-      logReport(event);
+     //logReport(event);
       final response = await repo.createUser(event );
       if (response is AccountNumberResponse) {
         emit(CreateAcctSuccessfulState(response));
-        AppUtils.debug("success");
-      }else{
-        emit(CreateAcctErrorState(response as ApiResponse));
-        AppUtils.debug("error");
+      //  AppUtils.debug("success");
+      }else if(response is ApiResponse){
+        emit(CreateAcctErrorState(response));
       }
     }catch(e){
       emit(CreateAcctErrorState(AppUtils.defaultErrorResponse()));

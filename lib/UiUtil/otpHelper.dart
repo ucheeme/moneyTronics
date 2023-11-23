@@ -31,7 +31,7 @@ class _DigitHolderState extends State<DigitHolder> {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-            color: AppColors.green0C,
+            color: AppColors.black1A,
             width: 0.3.h),
       ),
       child:Center(

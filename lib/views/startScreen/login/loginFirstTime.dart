@@ -6,18 +6,23 @@ import 'package:get/get.dart' as gett;
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:moneytronic/cubits/loginCubit/login_user_cubit.dart';
+import 'package:moneytronic/views/startScreen/signUpScreen/signUpScreen.dart';
 
 import '../../../UiUtil/customTextfield.dart';
 import '../../../UiUtil/customWidgets.dart';
 import '../../../UiUtil/passwordTextField.dart';
 import '../../../controllers/Controller/loginController.dart';
+import '../../../models/requests/LoginRequest.dart';
+import '../../../models/response/LoginResponse.dart';
 import '../../../utils/appUtil.dart';
 import '../../../utils/constants/Themes/colors.dart';
 import '../../../utils/constants/text.dart';
 import '../../appScreens/bottomNav.dart';
+import '../loginOrSignUpScreen.dart';
 import 'forgotPassword.dart';
 
-
+LoginResponse? loginResponse;
+LoginRequest? loginRequest;
 class LoginFirstTime extends StatefulWidget {
   const LoginFirstTime({super.key});
   @override
@@ -46,7 +51,11 @@ class _LoginFirstTimeState extends State<LoginFirstTime> implements PostWidgetCa
                 body: Column(children: [
                   appBarBackAndTxt(title: AppStrings.loginText,
                       backTap: () {
-                        Navigator.pop(context);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) =>
+                            const LoginOrSignUpScreen()
+                              //  const Login()
+                            ));
                       }),
                   Expanded(child:
                   Padding(
@@ -93,7 +102,8 @@ class _LoginFirstTimeState extends State<LoginFirstTime> implements PostWidgetCa
                   }),
                   gapHeight(50.h),
                   doNotHaveAccount(tap: () {
-
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    const SignUpScreen()));
                   }),
                   gapHeight(70.h),
                 ],),

@@ -27,7 +27,7 @@ class ApiService{
      dio.interceptors.add (
        DioLoggingInterceptor(
          level: Level.body,
-         compact: false,
+        compact: false,
        ),
      );
   }
@@ -36,13 +36,13 @@ class ApiService{
       HttpHeaders.userAgentHeader: 'dio',
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'X-Cedar-Api-Key':  Env.apiKey,
+      'X-MoneyTronics-Api-Key':  Env.apiKey,
       'Authorization': 'Bearer $accessToken'
     }: {
       HttpHeaders.userAgentHeader: 'dio',
       'Content-Type': 'application/json',
-      'X-Cedar-Api-Key':  Env.apiKey,
-      'Accept': 'application/json',
+      'X-MoneyTronics-Api-Key':  Env.apiKey,
+      'accept': '*/*',
     };
   }
   static Future<Object> makeApiCall(request,url,  bool requireAccess,  {bool? isAdmin = false, HttpMethods method =  HttpMethods.post, String baseUrl = AppUrls.baseUrl}) async {

@@ -10,6 +10,9 @@ class CreateAcctController extends GetxController{
   String formattedDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
   TextEditingController genderController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+  bool isActive= false;
+  bool isActiveFemale= false;
+  String gender ="Female";
   late CreateAcctCubit cubit;
 
 }

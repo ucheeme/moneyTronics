@@ -26,6 +26,24 @@ class AppUrls {
   static const getCustomerDetails = '$apiGateWay/profile/customer-details';
   static const createAdditionalAccount = '$apiGateWay/account/create-additional-account';
   static const getProduct = '$apiGateWay/utilities/get-products';
+  static const networkPlans = '$apiGateWay/bills/network-plans';
+  static const airtimeVend = '$apiGateWay/bills/vend';
+  static const getBankList = '$apiGateWay/transaction/banks';
+  static const performTransaction = '$apiGateWay/transaction/funds-transfer';
+  static const transactionHistory = '$apiGateWay/report/transaction-history';
+  static const saveBeneficiary = '$apiGateWay/profile/save-beneficiary';
+  static const getBeneficiary = '$apiGateWay/profile/get-beneficiaries';
+  static const deviceRegistration = '$apiGateWay/settings/update-device';
+  static const deleteBeneficiary = '$apiGateWay/profile/delete-beneficiary';
+  static const accountVerification = '$apiGateWay/transaction/account-enquiry';
+  static const billerGroupsUrl = '$apiGateWay/bills/biller-groups';
+  static const billerGroupsDetailsUrl = '$apiGateWay/bills/biller-groupDetails/';
+  static const billerPackageUrl = '$apiGateWay/bills/biller-slug/';
+  static const billerCustomerLookUpUrl = '$apiGateWay/bills/customer-lookup';
+  static const billerMakePaymentUrl = '$apiGateWay/bills/make-payment';
+  static const statementRequestUrl = '$apiGateWay/report/statement-request';
+  static const bvnInfo = '$apiGateWay/bvn/bvn-info';
+  static const accountTierUpgrade = '$apiGateWay/account/account-tier-upgrade';
 }
 class ApiResponseCodes {
   static const success = 200;

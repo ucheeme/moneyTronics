@@ -36,8 +36,4 @@ class AppColors{
   static const moneyTronicsBlue = Color(0xFF013499);
   static const moneyTronicsSkyBlue = Color(0xFFCCDDFF);
 
-
-
-
-
 }

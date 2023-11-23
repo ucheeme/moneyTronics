@@ -13,8 +13,10 @@ import 'package:intl/intl.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:moneytronic/UiUtil/customWidgets.dart';
 
+import '../UiUtil/TransactionPin.dart';
 import '../UiUtil/loadingDialog.dart';
 import '../UiUtil/textWidgets.dart';
+import '../models/response/ApiResonse2.dart' as model2;
 import '../models/response/ApiResponse.dart';
 import 'constants/Themes/colors.dart';
 
@@ -69,11 +71,19 @@ class AppUtils{
     returnValue.result!.message = msg;
     return returnValue;
   }
+
+  static model2.ApiResponse2 defaultErrorResponse2({String? msg = "Error occurred"}){
+    var returnValue =  model2.ApiResponse2();
+    returnValue.result = model2.Result();
+    returnValue.result!.message = msg;
+    return returnValue;
+  }
+
   static Widget loadingWidget( {required bool isLoading, required Widget child}){
     return LoadingOverlay(
         isLoading: isLoading,
         progressIndicator: const SpinKitCubeGrid(
-          color: AppColors.green2B,
+          color: AppColors.moneyTronicsBlue,
           size: 50.0,
         ),
         child: child);
@@ -130,7 +140,7 @@ class AppUtils{
             color: AppColors.black.withOpacity(0.10),
           ),
           BoxShadow(
-            color: AppColors.greenEB,
+            color: AppColors.moneyTronicsSkyBlue,
             spreadRadius: -0.0,
             blurRadius: 10.r,
             offset: const Offset(0.0, 0.0), // shadow direction: bottom right
@@ -144,9 +154,9 @@ class AppUtils{
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: const LinearProgressIndicator(
-                backgroundColor: AppColors.green18,
+                backgroundColor: AppColors.moneyTronicsBlue,
                 valueColor: AlwaysStoppedAnimation<Color>(
-                    AppColors.green2B),
+                    AppColors.moneyTronicsSkyBlue),
               ),
             ),
           ),
@@ -160,11 +170,28 @@ class AppUtils{
       width: 15.h,height: 18.r,
       decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: AppColors.green2B
+          color: AppColors.moneyTronicsBlue
       ),
 
     );
   }
+  dismissibleBottomSheet(BuildContext context, Widget modal, double height, {Function()? onTap}) async{
+    await showModalBottomSheet(
+        isDismissible: true,
+        enableDrag: true,
+        isScrollControlled: true,
+        context: context,
+        builder: (context) => SafeArea(
+          child: Container(height: height,
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child:  modal
+          ),
+        )
+    ).then((value) => onTap);
+  }
+
   static showLoadingDialog(BuildContext context, String title, bool show) async {
     if (show) {
       openBottomSheet(context, const LoadingDialog(
@@ -338,4 +365,30 @@ nonDismissibleBottomSheet(BuildContext context, Widget modal) {
 
 logReport(dynamic result){
   print("printing result: $result");
+}
+
+dismissibleBottomSheet(BuildContext context, Widget modal, double height, {Function()? onTap}) async{
+  await showModalBottomSheet(
+      isDismissible: true,
+      enableDrag: true,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => SafeArea(
+        child: Container(height: height,
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            child:  modal
+        ),
+      )
+  ).then((value) => onTap);
+}
+
+void openPinScreen(BuildContext context, Function(String) completionHandler)async {
+  var pin = await Navigator.push(context, MaterialPageRoute(builder: (context) =>
+      TransactionPinScreen()));
+  if (pin != null){
+    AppUtils.debug("pin entered $pin");
+    completionHandler(pin);
+  }
 }

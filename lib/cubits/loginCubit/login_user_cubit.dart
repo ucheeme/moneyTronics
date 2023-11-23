@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:moneytronic/models/requests/LoginRequest.dart';
 import 'package:moneytronic/models/response/LoginResponse.dart';
 import 'package:moneytronic/utils/appUtil.dart';
 import 'package:rxdart/rxdart.dart';
@@ -30,10 +31,10 @@ class LoginUserCubit extends Cubit<LoginUserState> {
     }
 
   }
-  handleLoginEvent(event) async {
+  handleLoginEvent(LoginRequest event) async {
     emit(LoginUserLoadingState());
     try {
-      final response = await repository.login(event.request);
+      final response = await repository.login(event);
       if (response is LoginResponse) {
         accessToken = response.token ?? "";
         emit(LoginUserSuccessState(response));

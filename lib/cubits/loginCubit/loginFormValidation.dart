@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../models/requests/LoginRequest.dart';
+import '../../utils/DeviceUtil.dart';
 
 class LoginFormValidation{
 
@@ -40,7 +42,10 @@ class LoginFormValidation{
   LoginRequest loginValidation(BuildContext context){
     LoginRequest request = LoginRequest(
         clientId: _clientIdSubject.stream.value,
-        clientSecret: _clientSecretSubject.stream.value
+        clientSecret: _clientSecretSubject.stream.value,
+        deviceId: const Uuid().v1(),
+        deviceModel: deviceModel,
+        deviceOs: platformOS, deviceName: deviceName, deviceType: 'mobile'
     );
     return request;
   }

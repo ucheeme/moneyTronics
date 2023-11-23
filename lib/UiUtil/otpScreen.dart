@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:moneytronic/UiUtil/successAlertBottomSheet.dart';
 import 'package:moneytronic/UiUtil/textWidgets.dart';
 import 'package:share_plus/share_plus.dart';
@@ -13,6 +15,7 @@ import '../utils/appUtil.dart';
 import '../utils/constants/Themes/colors.dart';
 import '../utils/constants/text.dart';
 import '../views/startScreen/login/loginFirstTime.dart';
+import 'bottomsheet/accountCreatedSuccessful.dart';
 import 'customWidgets.dart';
 import 'otpHelper.dart';
 
@@ -33,15 +36,15 @@ class _OtpScreenState extends State<OtpScreen> {
   void initState() {
     _checkOtp();
    //Listen for clipboard changes
-    Clipboard.getData('text/plain').then((clipboardData) {
-      if (clipboardData != null && clipboardData.text != null) {
-        setState(() {
-          pinCode.clear();
-          pinCode.write(clipboardData.text!);
-        });
-      }
-    });
-    super.initState();
+  //   Clipboard.getData('text/plain').then((clipboardData) {
+  //     if (clipboardData != null && clipboardData.text != null) {
+  //       setState(() {
+  //         pinCode.clear();
+  //         pinCode.write(clipboardData.text!);
+  //       });
+  //     }
+  //   });
+  //   super.initState();
   }
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,11 @@ class _OtpScreenState extends State<OtpScreen> {
         if (state is OtpCompleteState) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             Future.delayed(Duration.zero, (){
-            cubit.completeRegistration(RegVerificationRequest(username: widget.username ?? "", otpCode: pinCode.toString()));
+              // Get.bottomSheet(
+              //     backgroundColor: AppColors.white,
+              //     AccountCreated(accountNumber:"0112345678",));
+           cubit.completeRegistration(RegVerificationRequest(
+               username: widget.username ?? "", otpCode: pinCode.toString()));
             });
           });
         }
@@ -60,7 +67,10 @@ class _OtpScreenState extends State<OtpScreen> {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             Future.delayed(Duration.zero, (){
               // Navigator.pop(context, true);
-              _receiptBottomSheet(state.response.accountNumber);
+              // _receiptBottomSheet(state.response.accountNumber);
+              Get.bottomSheet(
+                  backgroundColor: AppColors.white,
+                  AccountCreated(accountNumber:state.response.accountNumber!,));
               cubit.initialState();
             });
           });
@@ -130,10 +140,10 @@ class _OtpScreenState extends State<OtpScreen> {
                           DigitHolder(
                             selectedIndex: selectedIndex, value: pinCode
                               .toString(), index: 3,),
-                          // gapWidth(30.w),
-                          // DigitHolder(
-                          //   selectedIndex: selectedIndex, value: pinCode
-                          //     .toString(), index: 4,),
+                          gapWidth(30.w),
+                          DigitHolder(
+                            selectedIndex: selectedIndex, value: pinCode
+                              .toString(), index: 4,),
                           // gapW(30.w),
                           // DigitHolder(
                           //   selectedIndex: selectedIndex, value: pinCode
