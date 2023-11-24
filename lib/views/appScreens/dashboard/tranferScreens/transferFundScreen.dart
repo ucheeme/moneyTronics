@@ -95,7 +95,7 @@ class _TransferFundScreenState extends State<TransferFundScreen> with SingleTick
             ),
             ),
             Tab(
-              child: customTab("CEDAR",
+              child: customTab("MoneyTronics",
                   _tabController.index == 1?
                   Colors.transparent:AppColors.whiteFA
               ),

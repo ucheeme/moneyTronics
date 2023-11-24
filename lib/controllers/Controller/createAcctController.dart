@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../bloc/AuthBloc/auth_bloc.dart';
 import '../../cubits/createAcctCubit/create_acct_cubit.dart';
 
 class CreateAcctController extends GetxController{
@@ -13,6 +14,6 @@ class CreateAcctController extends GetxController{
   bool isActive= false;
   bool isActiveFemale= false;
   String gender ="Female";
-  late CreateAcctCubit cubit;
-
+ // late CreateAcctCubit cubit;
+  late AuthBloc bloc;
 }

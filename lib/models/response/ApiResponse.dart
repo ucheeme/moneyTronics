@@ -21,6 +21,7 @@ class ApiResponse {
   };
 }
 
+
 List<String> validationMessageFromJson(String str) => List<String>.from(json.decode(str).map((x) => x));
 
 String validationMessageToJson(List<String> data) => json.encode(List<String>.from(data.map((x) => x)));
@@ -161,4 +162,3 @@ class CustomerDocumentUpload {
     "uploadedDocument": List<dynamic>.from(uploadedDocument.map((x) => x.toJson())),
   };
 }
-

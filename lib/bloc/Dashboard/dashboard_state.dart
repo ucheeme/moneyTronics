@@ -1,5 +1,6 @@
 part of 'dashboard_bloc.dart';
 
+
 abstract class DashboardState extends Equatable {
   const DashboardState();
 }
@@ -63,6 +64,12 @@ class DashboardBeneficiaryState extends DashboardState {
 class DashboardDelBeneficiaryState extends DashboardState {
   final SimpleResponse response;
   const DashboardDelBeneficiaryState(this.response);
+  @override
+  List<Object> get props => [response];
+}
+class DashboardStatementState extends DashboardState {
+  final StatementRequestResponse response;
+  const DashboardStatementState(this.response);
   @override
   List<Object> get props => [response];
 }

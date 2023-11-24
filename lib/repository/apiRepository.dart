@@ -28,9 +28,7 @@ class ApiRepository{
         }
       }
       else{
-
-        print("${response.errorResponse.runtimeType}");
-        setErrorResponse(response.errorResponse as ApiResponse);
+        setErrorResponse(AppUtils.defaultErrorResponse());
       }
     }else if(response is ForbiddenAccess){
       setErrorResponse(AppUtils.defaultErrorResponse());
@@ -38,8 +36,6 @@ class ApiRepository{
       setErrorResponse(AppUtils.defaultErrorResponse());
     }else if(response is NetWorkFailure){
       setErrorResponse(AppUtils.defaultErrorResponse());
-    }else{
-      setErrorResponse(AppUtils.defaultErrorResponse(msg: "ujkj"));
     }
   }
   handleErrorResponse2(dynamic response) {

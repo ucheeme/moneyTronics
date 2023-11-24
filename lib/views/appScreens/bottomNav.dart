@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moneytronic/views/appScreens/cards/card.dart';
-import 'package:moneytronic/views/appScreens/profile/profile.dart';
-import 'package:moneytronic/views/appScreens/transactionHistory/transactionHistoryScreen.dart';
+
+
 
 import '../../utils/constants/Themes/colors.dart';
+import 'Profile/profileScreen.dart';
 import 'dashboard/dashboard.dart';
+import 'history/transactionsHistoryScreen.dart';
 
 class BottomNavigator extends StatefulWidget {
   const BottomNavigator({super.key});
@@ -27,7 +29,7 @@ class _BottomNavigatorState extends State<BottomNavigator>  with TickerProviderS
 
   List<Widget> screens = [
     const DashBoardScreen(),
-    const UserCardScreen(),
+    const CardsScreen(),
     const TransactionHistoryScreen(),
     const ProfileScreen()
 

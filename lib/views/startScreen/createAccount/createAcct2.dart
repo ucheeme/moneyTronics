@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +10,9 @@ import 'package:moneytronic/utils/userUtil.dart';
 
 import '../../../UiUtil/customTextfield.dart';
 import '../../../UiUtil/otpScreen.dart';
-import '../../../cubits/createAcctCubit/create_acct_cubit.dart';
+import '../../../UiUtil/textWidgets.dart';
+import '../../../bloc/AuthBloc/auth_bloc.dart';
+import '../../../models/response/ApiResponse.dart';
 import '../../../utils/appUtil.dart';
 import '../../../utils/constants/Themes/colors.dart';
 
@@ -24,8 +28,8 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2>  {
   DateTime selectedDate = DateTime.now();
   String formattedDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
-  late CreateAcctCubit bloc;
-
+  //late CreateAcctCubit bloc;
+  late AuthBloc bloc;
   @override
   void initState() {
     // TODO: implement initState
@@ -36,14 +40,15 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2>  {
   }
   @override
   Widget build(BuildContext context) {
-    bloc = context.read<CreateAcctCubit>();
+   // bloc = context.read<CreateAcctCubit>();
+    bloc = context.read<AuthBloc>();
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         backgroundColor: AppColors.whiteFA,
-        body: BlocBuilder<CreateAcctCubit, CreateAcctState>(
+        body: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
-            if (state is CreateAcctSuccessfulState){
+            if (state is AuthStateUserCreated){
               //   AppUtils.postWidgetBuild(() => openOtpScreen());
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 Future.delayed(Duration.zero, (){
@@ -53,18 +58,21 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2>  {
               });
               bloc.initial();
             }
-            if (state is CreateAcctErrorState){
-              var msg = (state.errorResponse.result?.error?.validationMessages?.isNotEmpty == true)
-                  ? (state.errorResponse.result?.error?.validationMessages?[0])
-                  : state.errorResponse.result?.message ??"error occurred";
+            if (state is AuthStateError){
+
+              print("I am here");
+              var vMsg = apiErrorFromJson(json.encode(state.errorResponse.result?.error));
+              var msg = vMsg.validationMessages?.isEmpty == true ?
+              state.errorResponse.result?.message ??
+                  "error occurred" : vMsg.validationMessages?[0];
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Future.delayed(Duration.zero, (){
+                  AppUtils.showSnack(msg ?? "Error occurred", context);
+                });
+              });
               // AppUtils.postWidgetBuild(() {
               //   AppUtils.showSnack(msg, context);
               // });
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Future.delayed(Duration.zero, (){
-                 AppUtils.showSnack(msg, context);
-                });
-              });
               bloc.initial();
             } //1400000105
             return AppUtils().loadingWidget2(
@@ -75,6 +83,20 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2>  {
                 Padding(
                   padding: screenPadding(),
                   child: SingleChildScrollView(child: Column(children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ctmTxtGroteskMid("Complete registration",
+                              weight: FontWeight.w800,
+                              AppColors.black33, 18.sp,maxLines: 1,textAlign: TextAlign.start),
+                          gapH(20.0),
+                          ctmTxtGroteskMid("Set up your username, password and bvn to complete registration",
+                              AppColors.black33, 16.sp,maxLines: 2,textAlign: TextAlign.start),
+                        ],
+                      ),
+                    ),
                     gapHeight(30.h),
                     StreamBuilder<String>(
                         stream: bloc.validation.username,
@@ -87,7 +109,7 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2>  {
                           );
                         }
                     ),
-                    gapHeight(28.h),
+                   // gapHeight(28.h),
                     StreamBuilder<Object>(
                         stream: bloc.validation.bvn,
                         builder: (context, snapshot) {
@@ -98,7 +120,7 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2>  {
                             error: snapshot.hasError ? snapshot.error.toString() : "",
                           );
                         }),
-                    gapHeight(28.h),
+                   // gapHeight(28.h),
                     StreamBuilder<Object>(
                         stream: bloc.validation.password,
                         builder: (context, snapshot) {
@@ -111,7 +133,7 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2>  {
                           );
                         }
                     ),
-                    gapHeight(28.h),
+                   // gapHeight(28.h),
                     StreamBuilder<Object>(
                         stream: bloc.validation.retypePassword,
                         builder: (context, snapshot) {
@@ -130,21 +152,20 @@ class _CreateAccountScreen2State extends State<CreateAccountScreen2>  {
                     StreamBuilder<Object>(
                         stream: bloc.validation.userInfo2FormValid,
                         builder: (context, snapshot) {
-                          return blueBtn(title: 'Proceed',isEnabled: snapshot.hasData, tap: () {
+                          return  snapshot.hasData && snapshot.data == true ?
+                          blueBtn(title: 'Proceed',isEnabled: snapshot.hasData, tap: () {
                             //logReport("case");
                             !snapshot.hasData ? null :
-                            bloc.handleAccountCreateEvent(
-                                bloc.validation.createUser(context));
-                            // _receiptBottomSheet();
-                            // Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                            // const ForgotPasswordScreen()));
-                          });
+                            bloc.add(AuthEventCreateUser(bloc.validation.createUser(context)));
+
+
+                          }) : disabledBtn(title: "Proceed");
                         }
                     ),
                     gapHeight(70.h),
                   ],),),
                 ))
-              ],), isLoading: state is CreateAcctLoadingState, context: context,
+              ],), isLoading: state is AuthStateLoading, context: context,
             );
           },
         ),

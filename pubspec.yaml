@@ -66,6 +66,7 @@ dependencies:
   share_plus: ^7.2.1
   gap:
   shared_preferences:
+  webview_flutter: ^4.2.2
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -77,6 +78,7 @@ dev_dependencies:
   injectable_generator:
   flutter_page_lifecycle:
   dotted_line:
+  url_launcher:
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -99,7 +101,8 @@ flutter:
   assets:
      - assets/pictures/
      - assets/icons/
-     - assets/png/
+     - assets/png/icons/
+     - assets/png/images/
      - assets/lotties/
      - assets/icons/active_biometrics.png
      - assets/icons/lockFill.png

@@ -48,7 +48,7 @@ class _SpecialAccountTransferViewState extends State<SpecialAccountTransferView>
       bloc.formValidation = TransactionFormValidation();
       bloc.formValidation.setBankCode(Constants.cedarBankCode);
       bloc.formValidation.setDebitAccount(userAccounts?[0].accountnumber ?? "");
-      bloc.formValidation.setBankName("Cedar");
+      bloc.formValidation.setBankName("MoneyTronics");
       bloc.formValidation.setSelectedAccount(userAccounts![0]);
       if (widget.beneficiary != null){
         var value = widget.beneficiary!;
@@ -86,7 +86,7 @@ class _SpecialAccountTransferViewState extends State<SpecialAccountTransferView>
               accNumberControl.text = value.finedgeBankVerification?.accountNumber ?? "";
               bloc.formValidation.setBankCode(Constants.cedarBankCode);
               bloc.formValidation.setRecipientName(value.finedgeBankVerification?.acctName ?? "");
-              bloc.formValidation.setBankName("Cedar");
+              bloc.formValidation.setBankName("MoneyTronics");
               bloc.initial();
             });
             bloc.initial();
@@ -155,7 +155,7 @@ class _SpecialAccountTransferViewState extends State<SpecialAccountTransferView>
                                 padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15.r),
-                                  color: AppColors.greenEB,
+                                  color: AppColors.moneyTronicsSkyBlue,
                                 ),
                                 child: ctmTxtGroteskMid(
                                     "Select beneficiary",
@@ -186,7 +186,7 @@ class _SpecialAccountTransferViewState extends State<SpecialAccountTransferView>
                               }
                           ),
                         ),
-                        gapH(30.h),
+                       // gapH(30.h),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal:16.w),
                           child: StreamBuilder<Object>(

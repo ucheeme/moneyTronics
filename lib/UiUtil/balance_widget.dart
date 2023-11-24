@@ -31,7 +31,7 @@ class _BalanceWidgetState extends State<BalanceWidget> {
           ctmTxtGroteskReg("Available balance",AppColors.black4D,16.sp),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              nairaSign(obscure? "NGN *****":widget.balance,28.sp,colors:AppColors.green24),
+              nairaSign(obscure? "NGN *****":widget.balance,28.sp,colors:AppColors.primary),
               GestureDetector(
                   onTap: (){
                     setState(() {

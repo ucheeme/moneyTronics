@@ -8,6 +8,7 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:intl/intl.dart';
 import 'package:moneytronic/UiUtil/customRadioButton.dart';
+import 'package:moneytronic/bloc/AuthBloc/auth_bloc.dart';
 import 'package:moneytronic/controllers/Controller/createAcctController.dart';
 import 'package:moneytronic/cubits/createAcctCubit/create_acct_cubit.dart';
 import 'package:moneytronic/utils/constants/text.dart';
@@ -44,12 +45,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>  {
   }
   @override
   Widget build(BuildContext context) {
-    controller.cubit = context.read<CreateAcctCubit>();
+   //controller.cubit = context.read<CreateAcctCubit>();
+   controller.bloc = context.read<AuthBloc>();
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         backgroundColor: AppColors.whiteFA,
-        body: BlocBuilder<CreateAcctCubit, CreateAcctState>(
+        body: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,64 +80,64 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>  {
                       children: [
                         gapHeight(20.h),
                     StreamBuilder<String>(
-                        stream: controller.cubit.validation.firstName,
+                        stream: controller.bloc.validation.firstName,
                         builder: (context, snapshot) {
                           return CustomTextFieldWithValidation (
                             controller:null, title: AppStrings.enterFirstNameText,
                             details: "", inputType:TextInputType.text,
-                            onChange: controller.cubit.validation.setFirstName,
+                            onChange: controller.bloc.validation.setFirstName,
                             error: snapshot.hasError ? snapshot.error.toString() : "",
                           );
                         }
                     ),
-                    gapHeight(28.h),
+                   //gapHeight(28.h),
                     StreamBuilder<Object>(
-                        stream: controller.cubit.validation.lastName,
+                        stream: controller.bloc.validation.lastName,
                         builder: (context, snapshot) {
                           return CustomTextFieldWithValidation(
                             controller:null, title: AppStrings.enterLastNameText,
                             details: "", inputType:TextInputType.text,
-                            onChange: controller.cubit.validation.setLastName,
+                            onChange: controller.bloc.validation.setLastName,
                             error: snapshot.hasError ? snapshot.error.toString() : "",
                           );
                         }),
-                    gapHeight(28.h),
+                   // gapHeight(28.h),
                         StreamBuilder<Object>(
-                            stream: controller.cubit.validation.middleName,
+                            stream: controller.bloc.validation.middleName,
                             builder: (context, snapshot) {
                               return CustomTextFieldWithValidation(
                                 controller:null, title: "Middle name",
                                 details: "", inputType:TextInputType.text,
-                                onChange: controller.cubit.validation.setMiddleName,
+                                onChange: controller.bloc.validation.setMiddleName,
                                 error: snapshot.hasError ? snapshot.error.toString() : "",
                               );
                             }
                         ),
-                        gapHeight(28.h),
+                       // gapHeight(28.h),
                         StreamBuilder<Object>(
-                            stream:controller.cubit.validation.phone,
+                            stream:controller.bloc.validation.phone,
                             builder: (context, snapshot) {
                               return CustomTextFieldWithValidation(
                                 controller:null, title: "Phone number",
                                 details: "", inputType:TextInputType.phone,
-                                onChange: controller.cubit.validation.setPhone,
+                                onChange: controller.bloc.validation.setPhone,
                                 error: snapshot.hasError ? snapshot.error.toString() : "",
                               );
                             }
                         ),
-                        gapHeight(28.h),
+                       // gapHeight(28.h),
                         StreamBuilder<Object>(
-                            stream: controller.cubit.validation.email,
+                            stream: controller.bloc.validation.email,
                             builder: (context, snapshot) {
                               return CustomTextFieldWithValidation(
                                 controller:null, title: "Email",
                                 details: "", inputType:TextInputType.emailAddress,
-                                onChange:controller.cubit.validation.setEmail,
+                                onChange:controller.bloc.validation.setEmail,
                                 error: snapshot.hasError ? snapshot.error.toString() : "",
                               );
                             }
                         ),
-                        gapHeight(28.h),
+                       // gapHeight(28.h),
                         DateTextField(controller:controller.dateController, title:"Enter date of birth",
                            tap: (){
                               _selectDate(context);
@@ -159,7 +161,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>  {
                                     });
 
                                   }
-                                  controller.cubit.validation.setGender("Male");
+                                  controller.bloc.validation.setGender("Male");
                                 },
                                 child: CustomRadioButton(title: "Male", isActive: controller.isActive)),
                             const Gap(20),
@@ -177,7 +179,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>  {
                                     });
 
                                   }
-                                  controller.cubit.validation.setGender("Female");
+                                  controller.bloc.validation.setGender("Female");
                                 },
                                 child: CustomRadioButton(title: "Female", isActive: controller.isActiveFemale)),
                           ],
@@ -186,13 +188,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>  {
                     MediaQuery.of(context).viewInsets.bottom > 0.0 ?
                     gapHeight(50.h): gapHeight(50.h),// if keyboard is open
                     StreamBuilder<Object>(
-                        stream: controller.cubit.validation.userInfoFormValid,
+                        stream: controller.bloc.validation.userInfoFormValid,
                         builder: (context, snapshot) {
-                          return blueBtn(title: 'Proceed',isEnabled: snapshot.hasData, tap: () {
+                          return  snapshot.hasData && snapshot.data == true ? blueBtn(title: 'Proceed',isEnabled: snapshot.hasData, tap: () {
                            !snapshot.hasData ? null :
                             Navigator.push(context, MaterialPageRoute(builder: (context) =>
                             const CreateAccountScreen2()));
-                          });
+                          }): disabledBtn(title: "Proceed");
                         }
                     ),
                     gapHeight(70.h),
@@ -233,7 +235,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>  {
         .then((value) {
       if (value is SelectionModal){
         controller.genderController.text = value.title;
-        controller.cubit.validation.setGender(value.title);
+        controller.bloc.validation.setGender(value.title);
       }
     });
   }

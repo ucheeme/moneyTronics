@@ -28,8 +28,8 @@ class CreateAcctCubit extends Cubit<CreateAcctState> {
       if (response is AccountNumberResponse) {
         emit(CreateAcctSuccessfulState(response));
       //  AppUtils.debug("success");
-      }else if(response is ApiResponse){
-        emit(CreateAcctErrorState(response));
+      }else{
+        emit(CreateAcctErrorState(response as ApiResponse));
       }
     }catch(e){
       emit(CreateAcctErrorState(AppUtils.defaultErrorResponse()));

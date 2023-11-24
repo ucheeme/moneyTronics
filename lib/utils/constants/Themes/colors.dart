@@ -34,6 +34,8 @@ class AppColors{
   static const redE1 = Color(0xFFE1C7C7);
 
   static const moneyTronicsBlue = Color(0xFF013499);
+  static const primary = Color(0xFF013499);
   static const moneyTronicsSkyBlue = Color(0xFFCCDDFF);
+  static const accent = Color(0xFF9ABBFE);
 
 }

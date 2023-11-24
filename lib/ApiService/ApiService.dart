@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'dart:convert';
 import '../Env/env.dart';
+import '../models/response/ApiResponse.dart';
 import '../utils/appUtil.dart';
 import 'ApiUrl.dart';
 import 'api_status.dart';
@@ -52,7 +53,7 @@ class ApiService{
       Response<String>? response;
       switch (method) {
         case HttpMethods.post:
-          response =  await dio.post(url, data: body);;
+          response =  await dio.post(url, data: body);
           AppUtils.debug("method: post");
           break;
         case HttpMethods.put:
@@ -79,12 +80,20 @@ class ApiService{
           break;
       }
       if (response.statusCode != null) {
+        AppUtils.debug("status code: ${response.statusCode}");
         if (response.statusCode == ApiResponseCodes.success ) {
           return Success(response.statusCode!,response.data as String);
         }
-        if (ApiResponseCodes.error == response.statusCode || ApiResponseCodes.internalServerError == response.statusCode){
-          if (response.data is String) {
-            return Failure(response.statusCode ?? 400, (apiResponseFromJson( response.data as String)));
+        if (  399 <= (response.statusCode ?? 400) && (response.statusCode ?? 400)  <= 500){
+          if ( response.data is String ) {
+            try {
+              var apiRes = apiResponseFromJson(response.data as String);
+              return Failure(response.statusCode ?? 400,
+                  (apiRes));
+            }
+            catch(e){
+              print("error: $e");
+            }
           }else {
             return ForbiddenAccess();
           }
@@ -110,6 +119,4 @@ class ApiService{
     final bytes = response.bodyBytes;
     return (bytes != null ? base64Encode(bytes) : null);
   }
-
-  static apiResponseFromJson(String data) {}
 }

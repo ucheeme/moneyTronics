@@ -53,7 +53,7 @@ class _CustomDateRangePickerState extends State<CustomDateRangePicker> {
               view: DateRangePickerView.month,
               headerHeight: 58.h,
               headerStyle: DateRangePickerHeaderStyle(
-                  backgroundColor: AppColors.greenEB,
+                  backgroundColor: AppColors.moneyTronicsSkyBlue,
                   textAlign: TextAlign.center,
                   textStyle: TextStyle(
                     color: AppColors.black09,
@@ -167,7 +167,7 @@ class _CustomDateRangePickerState extends State<CustomDateRangePicker> {
           ),
           gapH(21.h),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25.w),
+            padding: EdgeInsets.symmetric(horizontal: 0.w),
             child: blueBtn(title: "Proceed", tap: (){
               if(startDateControl.text.isNotEmpty && endDateControl.text.isNotEmpty){
                 StartDateEndDate startAndEndDate = StartDateEndDate(

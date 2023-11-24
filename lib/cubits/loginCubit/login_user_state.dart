@@ -9,13 +9,18 @@ class LoginUserInitialState extends LoginUserState {
   List<Object> get props => [];
 }
 
-class LoginUserSuccessState extends LoginUserState{
-   final LoginResponse response;
-    const LoginUserSuccessState(this.response);
+class LoginUserSuccessState extends LoginUserState {
+  final LoginResponse response;
+
+  const LoginUserSuccessState(this.response);
+
   @override
   // TODO: implement props
   List<Object?> get props => [response];
-
+}
+class LoginDeviceChangeState extends LoginUserState {
+  @override
+  List<Object> get props => [];
 }
 class LoginIncompleteRegistration extends LoginUserState {
   final LoginIncomplete response;

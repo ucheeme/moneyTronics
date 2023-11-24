@@ -183,7 +183,7 @@ class _OtherBanksTransferViewState extends State<OtherBanksTransferView> {
                                 padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15.r),
-                                  color: AppColors.greenEB,
+                                  color: AppColors.moneyTronicsSkyBlue,
                                 ),
                                 child: ctmTxtGroteskMid(
                                     "Select beneficiary",
@@ -205,7 +205,7 @@ class _OtherBanksTransferViewState extends State<OtherBanksTransferView> {
                                 }),
                           ),
                         ),
-                        gapH(30.h),
+                       gapH(20.h),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal:16.w),
                           child:   StreamBuilder<Object>(
@@ -233,7 +233,7 @@ class _OtherBanksTransferViewState extends State<OtherBanksTransferView> {
                               }
                           ),
                         ),
-                        gapH(30.h),
+                      //  gapH(30.h),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal:16.w),
                           child: StreamBuilder<Object>(
@@ -263,7 +263,7 @@ class _OtherBanksTransferViewState extends State<OtherBanksTransferView> {
                               }
                           ),
                         ),
-                        gapH(30.h),
+                        gapH(20.h),
                         Container(alignment: Alignment.centerLeft,
                           padding: EdgeInsets.only(left: 16.w),
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start,

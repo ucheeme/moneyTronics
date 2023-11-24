@@ -41,6 +41,7 @@ class Assets {
   static const String iconsActiveCard = 'assets/icons/activeCard.png';
   static const String iconsActiveHome = 'assets/icons/activeHome.png';
   static const String iconsActiveProfile = 'assets/icons/activeProfile.png';
+  static const String iconsAirtime = 'assets/icons/airtime.png';
   static const String iconsArrowBack = 'assets/png/icons/arrow_back.png';
   static const String iconsArrowForward = 'assets/png/icons/arrow_forward.png';
   static const String iconsArrowRightB = 'assets/icons/arrowRightB.png';
@@ -75,6 +76,7 @@ class Assets {
   static const String iconsKey = 'assets/png/icons/key.png';
   static const String iconsKeyFace = 'assets/png/icons/key_face.png';
   static const String iconsLimit = 'assets/png/icons/limit.png';
+  static const String iconsLoan = 'assets/icons/loan.png';
   static const String iconsLock = 'assets/icons/lock.png';
   static const String iconsLockFill = 'assets/icons/lockFill.png';
   static const String iconsLockTwo = 'assets/png/icons/lock_two.png';

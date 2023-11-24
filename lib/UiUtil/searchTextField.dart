@@ -52,7 +52,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
             ),
             focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: AppColors.green2B,
+                  color: AppColors.accent,
                   width: 0.5.r,
                 ),
                 borderRadius: BorderRadius.circular(15.r)

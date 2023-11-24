@@ -36,7 +36,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   MaterialPageRoute(builder: (context) =>
                   const LoginOrSignUpScreen()
                     //  const Login()
-                  ));}),
+                  ));
+         }),
           Expanded(child:
           Padding(
             padding: screenPadding(),
@@ -47,13 +48,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 details: "", inputType:TextInputType.number,
                 onChange: (value){},
               ),
-              gapHeight(28.h),
+             // gapHeight(28.h),
               CustomTextFieldWithValidation(
                 controller: controller.accountNumberControl, title: AppStrings.enterAcctNum,
                 details: "", inputType:TextInputType.number,
                 onChange: (value){},
               ),
-              gapHeight(28.h),
+             // gapHeight(28.h),
               CustomTextFieldWithValidation(
                 controller:controller.referralCodeControl, title: AppStrings.enterReferralCode,
                 details: "", inputType:TextInputType.text,
@@ -65,7 +66,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>
                     OtpScreen(username: "Sam",)));
               }),
-              gapHeight(50.h),
+             gapHeight(50.h),
               alreadyHaveAccount(tap:(){
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>
                     const LoginFirstTime()));

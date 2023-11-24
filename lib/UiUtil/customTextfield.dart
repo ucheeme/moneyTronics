@@ -10,12 +10,13 @@ class CustomTextFieldWithValidation extends StatefulWidget {
   final Function(String) onChange;
   final TextInputType inputType;
   String? error;
+  String?  labelText = "";
   bool? obsureText;
   bool? enabled = true;
   Function()? detailTap;
   CustomTextFieldWithValidation({
-    super.key,this.detailTap, required this.controller, required this.title,
-    required this.details, this.error, this.obsureText, required this.onChange, required this.inputType, this.enabled
+    super.key, this.detailTap, required this.controller, required this.title,
+    required this.details, this.error, this.obsureText, required this.onChange, required this.inputType, this.enabled, this.labelText
   });
 
   @override
@@ -23,9 +24,7 @@ class CustomTextFieldWithValidation extends StatefulWidget {
 }
 
 class _CustomTextFieldWithValidationState extends State<CustomTextFieldWithValidation> {
-
-  final double _height = 57.h;
-
+  final double _height = 90.h;
   @override
   Widget build(BuildContext context) {
     return Stack(clipBehavior: Clip.none,
@@ -40,7 +39,7 @@ class _CustomTextFieldWithValidationState extends State<CustomTextFieldWithValid
                   controller: widget.controller,
                   cursorHeight: 15.h,
                   enabled: widget.enabled,
-                  cursorColor:AppColors.moneyTronicsBlue,
+                  cursorColor:AppColors.primary,
                   obscureText: widget.obsureText ?? false,
                   keyboardType: widget.inputType,
                   style: TextStyle(
@@ -49,12 +48,22 @@ class _CustomTextFieldWithValidationState extends State<CustomTextFieldWithValid
                     fontWeight: FontWeight.w500,
                   ),
                   onChanged: widget.onChange,
+
                   decoration: InputDecoration(
                     labelText: widget.title,
+                    errorText: widget.error,
+                    errorMaxLines: 2,
                     labelStyle: TextStyle(
                       color: AppColors.black, fontSize: 17.sp,
                       fontFamily: 'HKGroteskMedium',
                       fontWeight: FontWeight.w500,
+                    ),
+                    errorBorder:  OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: AppColors.primary,
+                          width: 0.5.r,
+                        ),
+                        borderRadius: BorderRadius.circular(15.r)
                     ),
                     contentPadding: EdgeInsets.only(bottom: 10.h,left: 15.w,right: 15.w),
                     border:  OutlineInputBorder(
@@ -66,7 +75,7 @@ class _CustomTextFieldWithValidationState extends State<CustomTextFieldWithValid
                     ),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: AppColors.moneyTronicsBlue,
+                          color: AppColors.primary,
                           width: 0.5.r,
                         ),
                         borderRadius: BorderRadius.circular(15.r)
@@ -84,7 +93,7 @@ class _CustomTextFieldWithValidationState extends State<CustomTextFieldWithValid
               widget.details.isNotEmpty?
               Column(
                 children: [
-                  gapWidth(20.w),
+                  gapW(20.w),
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.all(9.0),
@@ -94,7 +103,7 @@ class _CustomTextFieldWithValidationState extends State<CustomTextFieldWithValid
                           padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.r),
-                            color: AppColors.moneyTronicsSkyBlue,
+                            color: AppColors.greenEB,
                           ),
                           child: ctmTxtGroteskMid(
                               (widget.details.length > 20 )? '${widget.details. substring(0,20)}...': widget.details,

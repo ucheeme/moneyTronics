@@ -16,6 +16,7 @@ import '../../models/response/BeneficiaryResponse.dart';
 import '../../models/response/BillsResponse/NetworkPlansResponse.dart';
 import '../../models/response/LoginResponse.dart';
 import '../../models/response/SimpleApiResponse.dart';
+import '../../models/response/StatementRequestResponse.dart';
 import '../../models/response/TransactionHistory.dart';
 import '../../models/response/UserAccountResponse.dart';
 import '../../repository/dashboardRepository.dart';

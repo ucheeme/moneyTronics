@@ -42,6 +42,8 @@ class AppStrings{
   static const String phoneNumText ="phone number";
   static const String otpTimeText ="OTP expires in 2min 30secs...";
   static const String signUpHeaderText ="Join MoneyTronics MFB Today";
+  static const String logInHeaderText ="Welcome to MoneyTronics MFB";
+  static const String logInSubText ="You're about to embark on a seamless financial journey with MoneyTronics MFB";
   static const String signUpSubText ="Sign up now to experience seamless banking, "
       "manage your finances, and explore a world of possibilities.";
   static const String welcomeText ="Welcome";

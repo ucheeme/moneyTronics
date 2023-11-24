@@ -42,6 +42,7 @@ class _SelectBankBottomSheetState extends State<SelectBankBottomSheet> {
               child: ListView.builder(
                   itemCount: widget.banks.length,
                   itemBuilder: (context, index) {
+
                     return iconAndTextWidget(
                         widget.banks[index].bankname ?? "",(){
                       Navigator.pop(context,  widget.banks[index]);
@@ -70,7 +71,7 @@ class _SelectBankBottomSheetState extends State<SelectBankBottomSheet> {
             Container(
               width: 34.w,height: 32.h,
               decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: AppColors.green24
+                  shape: BoxShape.circle, color: AppColors.moneyTronicsBlue
               ),
               child: Center(child: ctmTxtGroteskMid(title[0].toUpperCase(),AppColors.white,12.5.sp),),
             ),

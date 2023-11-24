@@ -66,7 +66,7 @@ class _TransactionPinScreenState extends State<TransactionPinScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     gapH(25.h),
-                    Image.asset("assets/png/icons/luck.png",width: 78.w,height: 78.h,),
+                    Image.asset("assets/icons/lock.png",width: 78.w,height: 78.h,),
                     gapH(30.h),
                     ctmTxtGroteskMid("Enter your 4 digit pin",AppColors.black33, 18.sp),
                     gapH(20.h),

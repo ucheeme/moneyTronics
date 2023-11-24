@@ -27,7 +27,7 @@ class _CustomToggleSwitchState extends State<CustomToggleSwitch> {
             color: AppColors.black.withOpacity(0.20)
           ),
           BoxShadow(
-            color: widget.value ?AppColors.moneyTronicsBlue: AppColors.greenEB,
+            color: widget.value ?AppColors.moneyTronicsBlue: AppColors.moneyTronicsSkyBlue,
             spreadRadius: 0.0,
             blurRadius: 1.4.r,
             offset: const Offset(0.0, 0.0), // shadow direction: bottom right

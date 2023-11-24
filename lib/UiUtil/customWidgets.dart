@@ -102,7 +102,7 @@ GestureDetector blueBtn({required String title, isEnabled, required Function()ta
   return GestureDetector(
     onTap: tap,
     child: Container(
-      //margin: const EdgeInsets.symmetric(horizontal: 20.0),
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
       height: 60.h,width: 398.w,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.r),
@@ -183,6 +183,7 @@ Container appBarBackSignUp({required String title,required Function backTap,requ
           backArrow(backTap,),
           const Gap(20),
           ctmTxtGroteskMid(title,AppColors.black33,18.sp,weight: FontWeight.w700),
+          Gap(8),
           ctmTxtGroteskMid(subText,AppColors.black1A,16.sp,maxLines: 3),
 
 
@@ -298,13 +299,14 @@ AnnotatedRegion<SystemUiOverlayStyle> lightStatusBar(BuildContext context,widget
     child: widget,
   );
 }
-Column selectAccountColumn({required String title,required Widget pageView,required Widget pageIndicator}) {
+Column selectAccountColumn({required String title,required Widget pageView,required Widget pageIndicator,
+double top=30.0, double bottom= 20.0}) {
   return Column(children: [
-    Container(padding:EdgeInsets.only(left: 16.w,top: 30.h,bottom: 20.h),
+    Container(padding:EdgeInsets.only(left: 16.w,top: top.h,bottom: bottom.h),
         alignment: Alignment.centerLeft, child: ctmTxtGroteskMid(
             title, AppColors.black,18.sp)),
     pageView,
-    gapHeight(20.h),
+   gapHeight(20.h),
     pageIndicator
 
   ],);
@@ -340,7 +342,7 @@ ExpandingDotsEffect customIndicatorEffect() {
     dotWidth: 25.w,
     dotHeight: 11.5.h,
     radius: 10.r,
-    activeDotColor: AppColors.greenD8,
+    activeDotColor: AppColors.moneyTronicsSkyBlue,
     dotColor: AppColors.whiteE5,
     expansionFactor: 2,
   );

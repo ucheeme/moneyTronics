@@ -1,8 +1,6 @@
-// To parse this JSON data, do
-//
-//     final loginResponse = loginResponseFromJson(jsonString);
-
 import 'dart:convert';
+
+import 'ApiResponse.dart';
 
 LoginResponse loginResponseFromJson(String str) => LoginResponse.fromJson(json.decode(str));
 
@@ -18,6 +16,7 @@ class LoginResponse {
   String? details;
   String? registrationStatus;
   String? token;
+  CustomerDocumentUpload? customerDocumentUpload;
 
   LoginResponse({
     this.username,
@@ -29,6 +28,7 @@ class LoginResponse {
     this.details,
     this.registrationStatus,
     this.token,
+    this.customerDocumentUpload
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
