@@ -44,6 +44,7 @@ class AppUrls {
   static const statementRequestUrl = '$apiGateWay/report/statement-request';
   static const bvnInfo = '$apiGateWay/bvn/bvn-info';
   static const accountTierUpgrade = '$apiGateWay/account/account-tier-upgrade';
+  static const docUpload = "$apiGateWay/utilities/upload-document";
 }
 class ApiResponseCodes {
   static const success = 200;

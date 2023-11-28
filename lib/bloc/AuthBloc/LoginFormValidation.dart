@@ -108,7 +108,7 @@ import '../../utils/appUtil.dart';
    final validateUsername = StreamTransformer<String, String>.fromHandlers(
        handleData: (value, sink) {
          if (value.length < 2) {
-           sink.addError('Must be at Least 2 characters');
+           sink.addError('Must be at Least 5 characters');
          } else {
            sink.add(value);
          }

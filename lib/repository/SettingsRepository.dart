@@ -2,6 +2,7 @@ import 'dart:convert';
 
 
 import 'package:injectable/injectable.dart';
+import 'package:moneytronic/repository/DashboardRepository.dart';
 
 import '../ApiService/ApiService.dart';
 import '../ApiService/ApiUrl.dart';
@@ -13,7 +14,7 @@ import '../models/response/SimpleApiResponse.dart';
 import 'apiRepository.dart';
 
 @Injectable()
-class SettingsRepository extends ApiRepository {
+class SettingsRepository extends DashboardRepository {
   Future<Object> getSecurityQuestion() async {
     var response = await postRequest(null, AppUrls.getSecretQuestions, true, HttpMethods.get);
     var r = handleSuccessResponse(response);
@@ -80,6 +81,22 @@ class SettingsRepository extends ApiRepository {
   }
   Future<Object> resetTransactionPin(request) async {
     var response = await postRequest(request, AppUrls.resetTPin, true, HttpMethods.post);
+    var r = handleSuccessResponse(response);
+    if (r is ApiResponse) {
+      if (r.success == true) {
+        SimpleResponse res = simpleResponseFromJson(json.encode(r.result?.data));
+        return res;
+      } else {
+        return r;
+      }
+    } else {
+      handleErrorResponse(response);
+      return errorResponse!;
+    }
+  }
+
+  Future<Object> uploadDoc(request) async {
+    var response = await postRequest(request, AppUrls.docUpload, true, HttpMethods.post);
     var r = handleSuccessResponse(response);
     if (r is ApiResponse) {
       if (r.success == true) {

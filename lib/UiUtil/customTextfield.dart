@@ -103,7 +103,7 @@ class _CustomTextFieldWithValidationState extends State<CustomTextFieldWithValid
                           padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.r),
-                            color: AppColors.greenEB,
+                            color: AppColors.moneyTronicsSkyBlue,
                           ),
                           child: ctmTxtGroteskMid(
                               (widget.details.length > 20 )? '${widget.details. substring(0,20)}...': widget.details,

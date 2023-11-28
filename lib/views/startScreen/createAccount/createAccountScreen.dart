@@ -12,6 +12,7 @@ import 'package:moneytronic/bloc/AuthBloc/auth_bloc.dart';
 import 'package:moneytronic/controllers/Controller/createAcctController.dart';
 import 'package:moneytronic/cubits/createAcctCubit/create_acct_cubit.dart';
 import 'package:moneytronic/utils/constants/text.dart';
+import 'package:modal_bottom_sheet/src/bottom_sheets/material_bottom_sheet.dart';
 
 import '../../../UiUtil/bottomsheet/selectTextBottomSheet.dart';
 import '../../../UiUtil/customDatePicker.dart';
@@ -209,15 +210,23 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>  {
   }
 
   _selectDate(BuildContext context) async {
-
-    var date = await Get.bottomSheet(
-      backgroundColor: AppColors.white,
-      isDismissible: true,
-      SizedBox(
-        height: 600.h,
-        child: CustomDatePicker(),
-      )
-    );
+    var date = await showMaterialModalBottomSheet(
+        enableDrag: true,
+        backgroundColor: AppColors.white,
+        context: context,
+        builder: (context){
+          return SizedBox(
+              height: 630.h,
+              child: const CustomDatePicker());
+        });
+    // var date = await Get.bottomSheet(
+    //   backgroundColor: AppColors.white,
+    //   isDismissible: true,
+    //   SizedBox(
+    //     height: 600.h,
+    //     child: CustomDatePicker(),
+    //   )
+    // );
 
     if(date is String){
       if(date.isNotEmpty){

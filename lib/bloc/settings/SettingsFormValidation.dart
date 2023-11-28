@@ -40,7 +40,7 @@ class PasswordSettingsFormValidation {
   Stream<String> get usernameStream =>
       _usernameSubject.stream.transform(validateUsername);
   Stream<String> get accountNumber =>
-      _accountNumberSubject.stream.transform(validateUsername);
+      _accountNumberSubject.stream.transform(validateAccountNumber);
   Stream<String> get securityAnswerStream =>
       _securityAnswerSubject.stream.transform(validateSecretAnswer);
   Stream<bool> get validateForgotPasswordForm => Rx.combineLatest2(

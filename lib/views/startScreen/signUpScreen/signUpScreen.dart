@@ -74,12 +74,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               gapHeight(70.h),
 
 
-
-
-
-
-
-
             ],),),
           ))
 

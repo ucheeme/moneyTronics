@@ -89,6 +89,17 @@ class ApiRepository{
     }
   }
 
+  Future<Object> postDocUpload(file, url, docTypeId) async {
+    var response = await ApiService.uploadDoc(file, url, docTypeId);
+    if(response is Success) {
+      var r = apiResponseFromJson(response.response as String);
+      return r;
+    } else {
+      handleErrorResponse(response);
+      return errorResponse!;
+    }
+  }
+
   Future<Object> postRequest2(request, url, requiresToken, HttpMethods method) async {
     var response = await ApiService.makeApiCall(request, url, requiresToken, isAdmin : requiresToken, method: method);
     if(response is Success) {

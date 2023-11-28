@@ -4,18 +4,22 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 
-import '../../Repository/SettingsRepository.dart';
-import '../../Utils/appUtil.dart';
+import '../../ApiService/ApiService.dart';
+import '../../repository/SettingsRepository.dart';
+import '../../utils/appUtil.dart';
 import '../../models/requests/AccountTierUpgradeRequest.dart';
 import '../../models/requests/ChangePasswordRequest.dart';
 import '../../models/requests/DeviceRegistrationRequest.dart';
+import '../../models/requests/DocumentUploadRequest.dart';
 import '../../models/requests/ForgotPasswordOtpRequest.dart';
 import '../../models/requests/ForgotPasswordRequest.dart';
+import '../../models/requests/LoginRequest.dart';
 import '../../models/requests/ResetTransactionPinRequest.dart';
 import '../../models/requests/SendOtpRequest.dart';
 import '../../models/response/ApiResponse.dart';
 import '../../models/response/BvnInfoResponse.dart';
 import '../../models/response/ForgotPasswordOtpResponse.dart';
+import '../../models/response/LoginResponse.dart';
 import '../../models/response/SecurityQuestionsResponse.dart';
 import '../../models/response/SimpleApiResponse.dart';
 import 'SettingsFormValidation.dart';
@@ -57,6 +61,12 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
       });
       on<SettingAccountUpgradeEvent>((event, emit) {
         handleAccountTierUpgrade(event);
+      });
+      on<SettingDocUploadEvent>((event, emit) {
+        handleDocUploadEvent(event);
+      });
+      on<SettingLoginEvent>((event, emit) {
+        handleLoginEvent(event);
       });
    }
 
@@ -168,6 +178,24 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
      }
    }
 
+   handleDocUploadEvent(SettingDocUploadEvent event) async {
+     emit(SettingStateLoading());
+     try {
+       final response = await repository.uploadDoc(event.request);
+       if (response is SimpleResponse) {
+         emit(SettingDocumentUploadState(response));
+         AppUtils.debug("Document uploaded successfully");
+       }else{
+         response as ApiResponse;
+         emit(SettingStateError(response));
+         AppUtils.debug("failed to upload document");
+       }
+     }catch(e) {
+       emit(SettingStateError(AppUtils.defaultErrorResponse()));
+       AppUtils.debug("error");
+     }
+   }
+
    handleDeviceRegistrationEvent(event) async {
      emit(SettingStateLoading());
      try {
@@ -210,9 +238,9 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
      emit(SettingStateLoading());
      try {
        final response = await repository.accountTierUpgrade(event.request);
-       if (response is BvnInfoResponse) {
-         emit(SettingBvnInfoState(response));
-         AppUtils.debug("Bvn info url fetched");
+       if (response is SimpleResponse) {
+         emit(SettingAccountUpgradeState(response));
+         AppUtils.debug("Account upgraded");
        }else{
          response as ApiResponse;
          emit(SettingStateError(response));
@@ -223,4 +251,23 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
        AppUtils.debug("error");
      }
    }
+   handleLoginEvent(event) async {
+     emit(SettingStateLoading());
+     try {
+       final response = await repository.login(event.request );
+       if (response is LoginResponse) {
+         accessToken = response.token ?? "";
+         emit(SettingLoginSuccessfulState(response));
+         AppUtils.debug("login successful");
+       }else{
+         response as ApiResponse;
+         emit(SettingStateError(response));
+         AppUtils.debug("error");
+       }
+     }catch(e){
+       emit(SettingStateError(AppUtils.defaultErrorResponse()));
+       AppUtils.debug("error");
+     }
+   }
+
 }

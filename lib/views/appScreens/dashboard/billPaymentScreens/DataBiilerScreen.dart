@@ -127,7 +127,7 @@ class _DataBillerScreenState extends State<DataBillerScreen> {
             child: Scaffold(
               backgroundColor:AppColors.whiteFA,
                 bottomSheet: SizedBox(
-                  height: 100.0,
+                  height: 220.h,
                   child: Center (
                     child: customerIDControl.text.isNotEmpty && selectedPackage != null ?
                     blueBtn(

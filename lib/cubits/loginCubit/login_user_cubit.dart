@@ -41,7 +41,10 @@ class LoginUserCubit extends Cubit<LoginUserState> {
         AppUtils.debug("login successful");
       } else {
         response as ApiResponse;
-        errorObs.add(response.result?.message ?? "");
+        if(response.result?.message?.toLowerCase() == "New device detected".toLowerCase() ||
+            response.result?.message?.toLowerCase() == "Device details not found".toLowerCase() ) {
+          emit(LoginDeviceChangeState()); return;
+        }
         emit(LoginUserErrorState( response));
         AppUtils.debug("error");
       }

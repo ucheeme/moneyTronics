@@ -504,6 +504,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  image_gallery_saver:
+    dependency: "direct dev"
+    description:
+      name: image_gallery_saver
+      sha256: "0aba74216a4d9b0561510cb968015d56b701ba1bd94aace26aacdd8ae5761816"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.3"
   injectable:
     dependency: "direct main"
     description:
@@ -664,6 +672,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  modal_bottom_sheet:
+    dependency: "direct dev"
+    description:
+      path: modal_bottom_sheet
+      ref: main
+      resolved-ref: "3e8c3682be91a4a86ee73f39606901d5eb033f0b"
+      url: "https://github.com/followthemoney1/modal_bottom_sheet.git"
+    source: git
+    version: "2.1.2+1"
   nested:
     dependency: transitive
     description:
@@ -848,6 +865,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
+  share_files_and_screenshot_widgets:
+    dependency: "direct dev"
+    description:
+      name: share_files_and_screenshot_widgets
+      sha256: "351ddb09e4baebd4fbbdee95f2884d75a3c8154a1fa0abf679962a7cc9da0ca7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
   share_plus:
     dependency: "direct main"
     description:
@@ -1205,6 +1230,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.9.4"
+  widgets_to_image:
+    dependency: "direct dev"
+    description:
+      name: widgets_to_image
+      sha256: e32c7b77267c01d319dc97333d4f3d894e9d81c8b3a408fd33862fa7775ee398
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   win32:
     dependency: transitive
     description:

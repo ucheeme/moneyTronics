@@ -1,8 +1,8 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:moneytronic/UiUtil/setDateTextFieldWidget.dart';
 import 'package:moneytronic/UiUtil/textWidgets.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
@@ -43,11 +43,12 @@ class _CustomDateRangePickerState extends State<CustomDateRangePicker> {
     return Container(
       height: 660.h,width: double.infinity,
       color:AppColors.white,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
 
-          Expanded(
-            child: SfDateRangePicker(
+            SfDateRangePicker(
               // initialDisplayDate: DateTime.now(),
               selectionMode: DateRangePickerSelectionMode.extendableRange,
               view: DateRangePickerView.month,
@@ -155,31 +156,33 @@ class _CustomDateRangePickerState extends State<CustomDateRangePicker> {
 
 
             ),
-          ),
 
 
-          Row(mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SetDateTextFieldWidget(dateControl:startDateControl, title: 'Start date',),
-              gapW(21.w),
-              SetDateTextFieldWidget(dateControl:endDateControl, title: 'End date',)
-            ],
-          ),
-          gapH(21.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 0.w),
-            child: blueBtn(title: "Proceed", tap: (){
-              if(startDateControl.text.isNotEmpty && endDateControl.text.isNotEmpty){
-                StartDateEndDate startAndEndDate = StartDateEndDate(
-                    startDate: startDateControl.text,
-                    endDate: endDateControl.text );
-                Navigator.pop(context,startAndEndDate);
-              }
-             // return date range
-            }),
-          ),
-          gapH(25.h),
-        ],
+            Row(mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SetDateTextFieldWidget(dateControl:startDateControl, title: 'Start date',
+                date: startDateControl.text,),
+                gapW(21.w),
+                SetDateTextFieldWidget(dateControl:endDateControl, title: 'End date',
+                date: endDateControl.text,)
+              ],
+            ),
+            gapH(30.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 0.w),
+              child: blueBtn(title: "Proceed", tap: (){
+                if(startDateControl.text.isNotEmpty && endDateControl.text.isNotEmpty){
+                  StartDateEndDate startAndEndDate = StartDateEndDate(
+                      startDate: startDateControl.text,
+                      endDate: endDateControl.text );
+                  Navigator.pop(context,startAndEndDate);
+                }
+               // return date range
+              }),
+            ),
+            gapH(25.h),
+          ],
+        ),
       ),
     );
   }
@@ -192,62 +195,7 @@ class _CustomDateRangePickerState extends State<CustomDateRangePicker> {
 }
 
 
-class SetDateTextFieldWidget extends StatelessWidget {
-  final String title;
-  const SetDateTextFieldWidget({
-    super.key,
-    required this.dateControl,required this.title
-  });
 
-  final TextEditingController dateControl;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(clipBehavior: Clip.none,
-      children: [
-        Container(
-          height: 57.h,width: 180.w,
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          alignment: Alignment.centerLeft,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.r),
-            border: Border.all(
-              color: AppColors.green0C,
-              width: 0.5.h,
-            ),
-          ),
-          child: TextFormField(
-            enabled: false,
-            controller: dateControl,
-            cursorHeight: 15.h,
-            cursorColor:AppColors.moneyTronicsBlue,
-            style: TextStyle(
-              color: AppColors.black, fontSize: 16.sp,
-              fontFamily: 'HKGroteskMedium',
-              fontWeight: FontWeight.w500,
-            ),
-            onChanged: (value){},
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(bottom: 10.h),
-              border: InputBorder.none,
-            ),
-            // textInputAction: TextInputAction.done,
-          ),
-        ),
-        Positioned(
-          left: 20.w,
-          top: -10.h,
-          child: Container(
-            height: 19.h,
-            padding: EdgeInsets.symmetric(horizontal: 5.w),
-            color: AppColors.whiteFA, // Customize the background color of the label
-            child: ctmTxtGroteskMid(title, AppColors.black33, 16.sp),
-          ),
-        )
-      ],
-    );
-  }
-}
 class StartDateEndDate {
   String startDate;
   String endDate;

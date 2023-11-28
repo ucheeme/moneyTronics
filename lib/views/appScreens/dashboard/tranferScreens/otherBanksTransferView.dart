@@ -285,7 +285,7 @@ class _OtherBanksTransferViewState extends State<OtherBanksTransferView> {
                   ),
                   gapH(10.h),
                   SizedBox(
-                    height: 80.0,
+                    height: 80.h,
                     child: Center (
                       child: StreamBuilder<Object>(
                           stream: bloc.formValidation.validateTransferForm,
@@ -300,7 +300,7 @@ class _OtherBanksTransferViewState extends State<OtherBanksTransferView> {
                       ),
                     ),
                   ),
-                  gapH(30.h),
+                  gapH(70.h),
                 ],
               ),
             ),

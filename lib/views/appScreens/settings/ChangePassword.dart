@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../Bloc/settings/setting_bloc.dart';
+import '../../../bloc/settings/setting_bloc.dart';
 import '../../../UiUtil/bottomsheet/simpleSuccessAlertBottomSheet.dart';
 import '../../../UiUtil/customWidgets.dart';
 import '../../../UiUtil/passwordTextField.dart';

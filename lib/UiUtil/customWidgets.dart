@@ -37,6 +37,8 @@ GestureDetector outlineBtn({required String title, isEnabled, required Function(
 }
 EdgeInsets paddingWidth(width) => EdgeInsets.symmetric(horizontal: width);
 EdgeInsets paddingWidthHeigth(width,height) => EdgeInsets.symmetric(horizontal: width,vertical: height);
+EdgeInsets padW(width) => EdgeInsets.symmetric(horizontal: width);
+EdgeInsets padWH(width,height) => EdgeInsets.symmetric(horizontal: width,vertical: height);
 SizedBox gapHeight(height) => SizedBox(height: height,);
 SizedBox gapH(height) => SizedBox(height: height,);
 SizedBox gapWidth(width) => SizedBox(width: width,);
@@ -98,6 +100,39 @@ GestureDetector pageButton(icon,{required String title,required Function()tap}) 
     ),
   );
 }
+
+Widget manualProgressIndicator({required double progressWidthValue}) {
+  return Container(
+    width: 368.w,height:14.h,
+    padding: EdgeInsets.symmetric(horizontal: 4.w),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20.r),
+      color: AppColors.greenEB,
+      // boxShadow: [
+      // BoxShadow(
+      // color: AppColors.black.withOpacity(0.10),
+      // ),
+      // BoxShadow(
+      // color: Colors.amber,// AppColors.greenEB,
+      // spreadRadius: 0.0,
+      // blurRadius: 1,
+      // offset:  const Offset(0.0, 4.1), // shadow direction: bottom right
+      // )
+      // ],
+    ),
+    alignment: Alignment.centerLeft,
+    child: Container(
+      width: progressWidthValue.w,
+      height: 10.h,
+      decoration: BoxDecoration(
+          color: AppColors.primary,
+          borderRadius: BorderRadius.circular(10.r)
+      ),
+    ),
+
+  );
+}
+
 GestureDetector blueBtn({required String title, isEnabled, required Function()tap}) {
   return GestureDetector(
     onTap: tap,
@@ -346,4 +381,56 @@ ExpandingDotsEffect customIndicatorEffect() {
     dotColor: AppColors.whiteE5,
     expansionFactor: 2,
   );
+}
+
+class UploadKycCard extends StatefulWidget {
+  final String title,description;
+  final bool isUploaded;
+  final Widget statusWidget;
+  final Function () tap;
+  const UploadKycCard({
+    super.key, required this.title, required this.description, required this.isUploaded, required this.statusWidget, required this.tap,
+  });
+
+  @override
+  State<UploadKycCard> createState() => _UploadKycCardState();
+}
+
+class _UploadKycCardState extends State<UploadKycCard> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(onTap: widget.tap,
+      child: Container(
+        margin: screenPadding(),
+        padding: padWH(15.w, 20.h),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.r),
+            color: AppColors.white,
+            border: widget.isUploaded ?
+            Border.all(
+                color: AppColors.accent,
+                width: 1.r
+            ): null
+        ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(children: [
+              ctmTxtGroteskMid(widget.title,AppColors.black,18.sp,maxLines: 1),
+              widget.statusWidget,
+              Spacer(),
+              widget.isUploaded ?
+              Image.asset("assets/png/icons/tick_icon.png",
+                width: 24.w,height: 24.h,fit: BoxFit.contain,):
+              Image.asset("assets/png/icons/upload.png",
+                width: 24.w,height: 24.h,fit: BoxFit.contain,)
+
+
+            ],),
+            gapH(15.h),
+            ctmTxtGroteskReg(widget.description,AppColors.black,16.sp,maxLines: 3),
+          ],),
+
+      ),
+    );
+  }
 }

@@ -19,31 +19,31 @@ class ApiService{
   static var client = http.Client();
   static Dio dio = Dio();
   static  void initiateDio( bool requireAccess , {String baseUrl = AppUrls.baseUrl}) {
-     dio.options
-       ..baseUrl = baseUrl
-       ..validateStatus = (int? status) {
-         return status != null && status > 0;
-       }
-       ..headers = header(requireAccess);
-     dio.interceptors.add (
-       DioLoggingInterceptor(
-         level: Level.body,
+    dio.options
+      ..baseUrl = baseUrl
+      ..validateStatus = (int? status) {
+        return status != null && status > 0;
+      }
+      ..headers = header(requireAccess);
+    dio.interceptors.add (
+      DioLoggingInterceptor(
+        level: Level.body,
         compact: false,
-       ),
-     );
+      ),
+    );
   }
-  static Map<String, dynamic> header(bool requireAccess) {
+  static Map<String, String> header(bool requireAccess) {
     return  requireAccess ? {
       HttpHeaders.userAgentHeader: 'dio',
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'X-MoneyTronics-Api-Key':  Env.apiKey,
       'Authorization': 'Bearer $accessToken'
-    }: {
+    } : {
       HttpHeaders.userAgentHeader: 'dio',
       'Content-Type': 'application/json',
       'X-MoneyTronics-Api-Key':  Env.apiKey,
-      'accept': '*/*',
+      'Accept': 'application/json',
     };
   }
   static Future<Object> makeApiCall(request,url,  bool requireAccess,  {bool? isAdmin = false, HttpMethods method =  HttpMethods.post, String baseUrl = AppUrls.baseUrl}) async {
@@ -93,7 +93,7 @@ class ApiService{
             }
             catch(e){
               print("error: $e");
-            }
+           }
           }else {
             return ForbiddenAccess();
           }
@@ -112,8 +112,50 @@ class ApiService{
       return  UnExpectedError();
     }
   }
+  static Future<Object> uploadDoc(File file, String url, String docType) async {
+    try {
+      var headers =  header(true);
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.headers.addAll(headers);
+      request.fields['DocumentType'] = docType;
+      request.files.add(
+          http.MultipartFile(
+              'Image',
+              file.readAsBytes().asStream(),
+              file.lengthSync(),
+              filename: file.path.split("/").last
+          )
+      );
+      AppUtils.debug("/****rest call request starts****/");
+      AppUtils.debug("url: $url");
+      AppUtils.debug("headers: $headers");
+      var res = await request.send();
+      final response = await res.stream.bytesToString();
+      AppUtils.debug("/****rest call response starts****/");
+      AppUtils.debug("status code: ${res.statusCode}");
+      AppUtils.debug("rest response: "+response);
+      if (ApiResponseCodes.success == res.statusCode){
+        return  Success(res.statusCode,response);
+      }
+      if (ApiResponseCodes.error == res.statusCode || ApiResponseCodes.internalServerError == res.statusCode){
+        return  Failure(res.statusCode,(apiResponseFromJson(response)));
+      }
+      if (ApiResponseCodes.authorizationError == res.statusCode){
+        return ForbiddenAccess();
+      }
+      else{
+        return  Failure(res.statusCode,"Error Occurred");
+      }
+    }on HttpException{
+      return  NetWorkFailure();
 
+    }on FormatException{
+      return  UnExpectedError();
 
+    }catch (e){
+      return UnExpectedError();
+    }
+  }
   Future<String?> networkImageToBase64(String imageUrl) async {
     http.Response response = await http.get(Uri.parse(imageUrl));
     final bytes = response.bodyBytes;

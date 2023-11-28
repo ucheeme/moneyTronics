@@ -45,5 +45,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+    <string>MoneyTronics requires access to your camera for documents upload capture</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>MoneyTronics requires access to your gallery</string>
+    <key>NSFaceIDUsageDescription</key>
+    <string>This app uses your biometric to log in and perform transactions</string>
 </dict>
 </plist>

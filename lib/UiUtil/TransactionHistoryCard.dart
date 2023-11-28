@@ -21,7 +21,7 @@ class TransactionHistoryCard extends StatelessWidget {
       child: Container(
         width: double.infinity,
         margin: EdgeInsets.symmetric(horizontal: 16.w,vertical: 7.5.h),
-        padding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 14.h),
+        padding: EdgeInsets.symmetric(horizontal: 0.w,vertical: 14.h),
         decoration: const BoxDecoration(
           color: AppColors.white,
         ),
@@ -30,7 +30,7 @@ class TransactionHistoryCard extends StatelessWidget {
             Container(
               height: 38.h,width: 38.h,
               decoration: BoxDecoration(
-                  color:  isCredit?AppColors.greenC7:AppColors.redE1,
+                  color:  isCredit?AppColors.accent:AppColors.redE1,
                   shape: BoxShape.circle
               ),
               child: Center(child: Image.asset(

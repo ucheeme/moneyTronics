@@ -23,11 +23,11 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     return Container(
       height: 660.h,width: double.infinity,
       color:AppColors.white,
-      child: Column(
-        children: [
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
 
-          Expanded(
-            child: SfDateRangePicker(
+            SfDateRangePicker(
               // initialDisplayDate: DateTime.now(),
               selectionMode: DateRangePickerSelectionMode.single,
               view: DateRangePickerView.month,
@@ -104,24 +104,24 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
 
             ),
-          ),
 
-          dateTextField(),
-          gapHeight(21.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            child: blueBtn(title: "Set date", tap: (){
-            //  Navigator.pop(context,dateControl.text);
-              Get.back(result: dateControl.text);
-            }),
-          ),
-          gapHeight(25.h),
-        ],
+            dateTextField(dateControl.text),
+            gapHeight(21.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              child: blueBtn(title: "Set date", tap: (){
+              //  Navigator.pop(context,dateControl.text);
+                Get.back(result: dateControl.text);
+              }),
+            ),
+            gapHeight(25.h),
+          ],
+        ),
       ),
     );
   }
 
-  Padding dateTextField() {
+  Padding dateTextField(String date) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 25.w),
       child: Stack(clipBehavior: Clip.none,
@@ -137,23 +137,24 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 width: 0.5.h,
               ),
             ),
-            child: TextFormField(
-              enabled: false,
-              controller: dateControl,
-              cursorHeight: 15.h,
-              cursorColor:AppColors.moneyTronicsSkyBlue,
-              style: TextStyle(
-                color: AppColors.black, fontSize: 16.sp,
-                fontFamily: 'HKGroteskMedium',
-                fontWeight: FontWeight.w500,
-              ),
-              onChanged: (value){},
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(bottom: 10.h),
-                border: InputBorder.none,
-              ),
-              // textInputAction: TextInputAction.done,
-            ),
+            // child: TextFormField(
+            //   enabled: false,
+            //   controller: dateControl,
+            //   cursorHeight: 15.h,
+            //   cursorColor:AppColors.moneyTronicsSkyBlue,
+            //   style: TextStyle(
+            //     color: AppColors.black, fontSize: 16.sp,
+            //     fontFamily: 'HKGroteskMedium',
+            //     fontWeight: FontWeight.w500,
+            //   ),
+            //   onChanged: (value){},
+            //   decoration: InputDecoration(
+            //     contentPadding: EdgeInsets.only(bottom: 10.h),
+            //     border: InputBorder.none,
+            //   ),
+            //   // textInputAction: TextInputAction.done,
+            // ),
+            child: ctmTxtGroteskMid(date, AppColors.black, 14.sp),
           ),
           Positioned(
             left: 20.w,

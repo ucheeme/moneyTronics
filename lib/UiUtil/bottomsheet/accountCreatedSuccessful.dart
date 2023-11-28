@@ -9,6 +9,7 @@ import 'package:moneytronic/cubits/loginCubit/login_user_cubit.dart';
 import 'package:moneytronic/models/requests/LoginRequest.dart';
 import 'package:moneytronic/utils/constants/Themes/colors.dart';
 import 'package:moneytronic/utils/constants/text.dart';
+import 'package:moneytronic/views/startScreen/login/loginFirstTime.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../utils/DeviceUtil.dart';
@@ -45,34 +46,7 @@ class _AccountCreatedState extends State<AccountCreated> {
   @override
   Widget build(BuildContext context) {
     cubit = context.read<LoginUserCubit>();
-    return BlocBuilder<LoginUserCubit, LoginUserState>(
-  builder: (context, state) {
-    if(state is LoginUserErrorState){
-      var msg = (state.errorResponse.result?.error?.validationMessages?.isNotEmpty == true)
-          ? (state.errorResponse.result?.error?.validationMessages?[0])
-          : state.errorResponse.result?.message ??"error occurred";
-      // AppUtils.postWidgetBuild(() {
-      //   AppUtils.showSnack(msg, context);
-      // });
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Future.delayed(Duration.zero, (){
-          AppUtils.showSnack(msg, context);
-        });
-      });
-      cubit.resetState();
-    }
-    if(state is LoginUserSuccessState){
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-
-        Future.delayed(Duration.zero, (){
-          Navigator.push(context, MaterialPageRoute(builder:
-              (context) => const SetSecurityQuestionsPage()));
-          cubit.resetState();
-        });
-      });
-    }
-    return AppUtils.loadingWidget(
-      child: Container(
+    return Container(
         height: 600.h,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -125,19 +99,19 @@ class _AccountCreatedState extends State<AccountCreated> {
               padding: EdgeInsets.symmetric(horizontal: 30.w),
               child: blueBtn(title: "Proceed", tap:(){
                 _getuserInfo();
-           cubit.handleLoginEvent(LoginRequest(
-                 clientId: clientId, clientSecret: clientPass,
-               deviceId: const Uuid().v1(),
-               deviceModel: deviceModel,
-               deviceOs: platformOS, deviceName: deviceName,
-               deviceType: 'mobile'));
-              }),
+                Navigator.push(context, MaterialPageRoute(builder:
+                    (context) => const LoginFirstTime()));
+           // cubit.handleLoginEvent(LoginRequest(
+           //       clientId: clientId, clientSecret: clientPass,
+           //     deviceId: const Uuid().v1(),
+           //     deviceModel: deviceModel,
+           //     deviceOs: platformOS, deviceName: deviceName,
+           //     deviceType: 'mobile'));
+             }),
             )
           ],
         ),
-      ), isLoading: state is LoginUserLoadingState,
-    );
-  },
-);
+      );
+
   }
 }

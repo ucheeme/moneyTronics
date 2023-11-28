@@ -49,6 +49,20 @@ class SettingSendOtpEvent  extends SettingEvent {
   List<Object?> get props => [];
 }
 
+class SettingDocUploadEvent  extends SettingEvent {
+  final DocumentUploadRequest request;
+  const SettingDocUploadEvent({required this.request});
+  @override
+  List<Object?> get props => [];
+}
+
+class SettingLoginEvent  extends SettingEvent {
+  final LoginRequest request;
+  const SettingLoginEvent({required this.request});
+  @override
+  List<Object?> get props => [];
+}
+
 class SettingResetTpinEvent  extends SettingEvent {
   final ResetTransactionPinRequest request;
   const SettingResetTpinEvent(this.request);

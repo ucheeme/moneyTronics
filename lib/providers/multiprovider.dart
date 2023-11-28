@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moneytronic/bloc/LoginBloc/login_bloc.dart';
 import 'package:moneytronic/cubits/otpCubit/otp_cubit.dart';
 import 'package:moneytronic/cubits/signupCubit/signup_cubit.dart';
 import 'package:moneytronic/repository/createAcctRepo.dart';
@@ -7,7 +8,7 @@ import 'package:moneytronic/repository/loginRepo/login_repo.dart';
 import 'package:nested/nested.dart';
 
 import '../Repository/BillRepository.dart';
-import '../Repository/SettingsRepository.dart';
+import '../repository/SettingsRepository.dart';
 import '../bloc/AuthBloc/auth_bloc.dart';
 import '../bloc/BillBloc/bill_bloc.dart';
 import '../bloc/Dashboard/dashboard_bloc.dart';
@@ -44,6 +45,7 @@ class ProviderWidget{
       BlocProvider(create: (BuildContext context) =>  SettingBloc(repository: SettingsRepository())),
       BlocProvider(create: (BuildContext context) =>  TransactionBloc(TransactionRepository())),
       BlocProvider(create: (BuildContext context) =>  AuthBloc(repository: AuthRepo())),
+      BlocProvider(create: (BuildContext context) =>  LoginBloc(repository: AuthRepo())),
     ];
 
   }

@@ -64,6 +64,20 @@ class SettingAccountUpgradeState extends SettingState {
   @override
   List<Object> get props => [response];
 }
+
+class SettingDocumentUploadState extends SettingState {
+  final SimpleResponse response;
+  const SettingDocumentUploadState(this.response);
+  @override
+  List<Object> get props => [response];
+}
+class SettingLoginSuccessfulState extends SettingState {
+  final LoginResponse response;
+  const SettingLoginSuccessfulState(this.response);
+  @override
+  List<Object> get props => [response];
+}
+
 class SettingDeviceRegistrationState extends SettingState {
   final SimpleResponse response;
   const SettingDeviceRegistrationState(this.response);

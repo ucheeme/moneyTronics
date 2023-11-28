@@ -56,8 +56,8 @@ class _SetSecurityQuestionsPageState extends State<SetSecurityQuestionsPage> {
                 openBottomSheet(context, ProtectAccountScreen(title: "Successful",
                     body: "You security question and transaction pin has been "
                         "successfully set", proceedTap: () {
-                  // Navigator.pop(context);
-                  // Navigator.pop(context);
+                  Navigator.pop(context);
+                  Navigator.pop(context);
 
                 }), isDismissible: false);
               });

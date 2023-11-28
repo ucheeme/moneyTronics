@@ -125,7 +125,7 @@ class _AirtimeBillerScreenState extends State<AirtimeBillerScreen> {
             child: Scaffold(
               backgroundColor:AppColors.whiteFA,
                 bottomSheet: SizedBox(
-                  height: 100.0,
+                  height: 200.h,
                   child: Center (
                     child: phoneControl.text.isNotEmpty  && amountControl.text.isNotEmpty ?
                     blueBtn(
@@ -153,7 +153,8 @@ class _AirtimeBillerScreenState extends State<AirtimeBillerScreen> {
                 children: [
                   appBarBackAndTxt(title: "Airtime payment",
                       backTap: (){Navigator.pop(context);}),
-                  Expanded(
+                  SizedBox(
+                    height: 500.h,
                     child: ListView(
                       padding: EdgeInsets.zero,
                       children: [

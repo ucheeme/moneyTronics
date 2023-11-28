@@ -1,10 +1,14 @@
+
+
 import 'dart:async';
+
+
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:uuid/uuid.dart';
 
+import '../../Utils/DeviceUtil.dart';
 import '../../models/requests/LoginRequest.dart';
-import '../../utils/DeviceUtil.dart';
+
 
 class LoginFormValidation{
 
@@ -36,19 +40,19 @@ class LoginFormValidation{
           sink.addError('Please enter password');
         } else {
           sink.add(value);
-       }
+        }
       }
   );
-
   LoginRequest loginValidation(){
-    LoginRequest request = LoginRequest(
-        clientId: _clientIdSubject.stream.value,
-        clientSecret: _clientSecretSubject.stream.value,
-        deviceId: deviceId,
-        deviceModel: deviceModel,
-        deviceOs: platformOS, deviceName: deviceName, deviceType: 'mobile'
-    );
+     LoginRequest request =  LoginRequest(
+         clientId: _clientIdSubject.stream.value,
+         clientSecret: _clientSecretSubject.stream.value,
+         deviceId: deviceId,
+         deviceModel: deviceModel,
+         deviceOs: deviceOs,
+         deviceName: deviceName,
+         deviceType: "Mobile"
+     );
     return request;
   }
-
 }

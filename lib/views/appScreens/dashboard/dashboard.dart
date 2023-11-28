@@ -9,6 +9,7 @@ import 'package:moneytronic/views/appScreens/dashboard/tranferScreens/otherBanks
 import 'package:moneytronic/views/appScreens/dashboard/tranferScreens/specialAccountTransferView.dart';
 import 'package:moneytronic/views/appScreens/dashboard/tranferScreens/transferFundScreen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:modal_bottom_sheet/src/bottom_sheets/cupertino_bottom_sheet.dart';
 
 import '../../../UiUtil/TransactionHistoryCard.dart';
 import '../../../UiUtil/TransactionPin.dart';
@@ -33,13 +34,13 @@ import '../../../utils/constants/Constants.dart';
 import '../../../utils/constants/Themes/colors.dart';
 import '../../startScreen/login/loginFirstTime.dart';
 import '../../startScreen/setSecurityQuestionsPage.dart';
-import '../fixedDeposit/FDLandingPage.dart';
 import '../history/transactionReceipt.dart';
 import 'AirtimeScreen/AirtimePurchaseScreen.dart';
 import 'DataScreens/dataPurchaseScreen.dart';
 import 'billPaymentScreens/AirtimeBiilerScreen.dart';
 import 'billPaymentScreens/BillPaymentScreen.dart';
 import 'billPaymentScreens/DataBiilerScreen.dart';
+import 'fixedDeposit/FDLandingPage.dart';
 
 
 var hasSetPin = false;
@@ -275,12 +276,12 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                   const DataBillerScreen()));
                             }),
                           ),
-                          optionRow(
-                            optionWidget("Scheduled transactions","assets/png/icons/card.png",(){
-                            }),
-                            optionWidget("Loan","assets/png/icons/empty-wallet.png",(){
-                            }),
-                          ),
+                          // optionRow(
+                          //   optionWidget("Scheduled transactions","assets/png/icons/card.png",(){
+                          //   }),
+                          //   optionWidget("Loan","assets/png/icons/empty-wallet.png",(){
+                          //   }),
+                          // ),
                           optionRow(
                             optionWidget("Account statement","assets/png/icons/bill.png",(){
                               openRequestAccountStatementCalendar(context, (result) {
@@ -396,10 +397,23 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   }
   void openRequestAccountStatementCalendar(BuildContext context,
       Function(StartDateEndDate) completionHandler)async {
-    StartDateEndDate? result = await Get.bottomSheet(
-      backgroundColor: AppColors.white,
-               CustomDateRangePicker()
-        );
+    StartDateEndDate? result = await showCupertinoModalBottomSheet(
+        enableDrag: true,
+        topRadius: Radius.zero,
+        backgroundColor: AppColors.white,
+        context: context,
+        builder: (context){
+      return SizedBox(
+          height: 630.h,
+          child: const CustomDateRangePicker());
+    });
+
+    // StartDateEndDate? result = await Get.bottomSheet(
+    //   backgroundColor: AppColors.white,
+    //            SizedBox(
+    //                height: 700.h,
+    //                child: CustomDateRangePicker())
+    //     );
     if (result != null){
       completionHandler(result);
       AppUtils.debug("start Date ${result.startDate}");
@@ -407,7 +421,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     }
   }
 }
-
 
 
 

@@ -52,6 +52,7 @@ class Assets {
   static const String iconsCalendar = 'assets/png/icons/calendar.png';
   static const String iconsCancel = 'assets/png/icons/cancel.png';
   static const String iconsCard = 'assets/png/icons/card.png';
+  static const String iconsCardAtm = 'assets/icons/cardAtm.png';
   static const String iconsCardFilled = 'assets/png/icons/card_filled.png';
   static const String iconsCopy = 'assets/png/icons/copy.png';
   static const String iconsCopyBlack = 'assets/icons/copyBlack.png';
@@ -90,8 +91,10 @@ class Assets {
   static const String iconsShare = 'assets/png/icons/share.png';
   static const String iconsSignOut = 'assets/png/icons/sign_out.png';
   static const String iconsSterlingBank = 'assets/png/icons/sterling_bank.png';
+  static const String iconsTickIcon = 'assets/png/icons/tick_icon.png';
   static const String iconsTransfer = 'assets/png/icons/transfer.png';
   static const String iconsTrash = 'assets/png/icons/trash.jpg';
+  static const String iconsUpload = 'assets/png/icons/upload.png';
   static const String iconsUser = 'assets/png/icons/user.png';
   static const String iconsUserAdd = 'assets/png/icons/user_add.png';
   static const String imagesCedarLogo = 'assets/png/images/Cedar_logo.png';

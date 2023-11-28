@@ -30,8 +30,8 @@ class _ReceiptBottomSheetState extends State<ReceiptBottomSheet> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           gapHeight(30.h),
-          Lottie.asset(widget.isSuccessful?"assets/lotties/success.json":
-          "assets/lotties/failed.json",
+          Lottie.asset(widget.isSuccessful?"assets/lotties/sucessful.json":
+          "assets/lotties/failedAnim.json",
             width: 300.w,height: 300.h,fit: BoxFit.contain,
           ),
           ctmTxtGroteskMid(widget.type, AppColors.black, 24.sp),

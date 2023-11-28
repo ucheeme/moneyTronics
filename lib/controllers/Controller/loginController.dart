@@ -29,11 +29,12 @@ class LoginController extends GetxController{
 
     if (state is LoginUserSuccessState){
       loginResponse = state.response;
-      loginRequest ??= cubit.validation.loginValidation(context);
+      loginRequest ??= cubit.validation.loginValidation();
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Future.delayed(Duration.zero, (){
           // Navigator.push(context, MaterialPageRoute(builder: (context)
           // => const BottomNavigator()));
+
           if (biometricEnabled){
            openHome(context);
             return;
@@ -90,12 +91,12 @@ class LoginController extends GetxController{
     await Navigator.push(context,
         MaterialPageRoute(
           builder: (context) =>  DeviceRegistrationScreen(username:
-          cubit.validation.loginValidation(context).clientId),
+          cubit.validation.loginValidation().clientId),
         )).then((value){
       print("poppped");
       if (value == true){
       // cubit.add(LoginEventLoginUser(bloc.validation.loginValidation()));
-       cubit.handleLoginEvent(cubit.validation.loginValidation(context));
+       cubit.handleLoginEvent(cubit.validation.loginValidation());
       }
     });
   }
