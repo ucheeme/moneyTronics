@@ -3,11 +3,15 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../UiUtil/bottomsheet/simpleSuccessAlertBottomSheet.dart';
 import '../../../../UiUtil/customWidgets.dart';
 import '../../../../Utils/appUtil.dart';
+import '../../../../bloc/FixedDepositCalculator/fixed_deposit_calculator_bloc.dart';
+import '../../../../models/requests/FixedDepositLiquidationRequest.dart';
 import '../../../../models/response/FixedDepositListResponse.dart';
 import '../../../../utils/constants/Themes/colors.dart';
 
@@ -23,6 +27,7 @@ class FDSelectedItemPage extends StatefulWidget {
 
 class _FDSelectedItemPageState extends State<FDSelectedItemPage> {
   late FixedDepositListResponse fd;
+  late FixedDepositCalculatorBloc bloc;
   @override
   void initState() {
     fd = widget.fd;
@@ -30,22 +35,55 @@ class _FDSelectedItemPageState extends State<FDSelectedItemPage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.whiteF4,
-        body: Column(
-            children: [
-              Container(
-                color: Colors.white,
-                child: appBarBackAndTxt(
-                    title: "Fixed deposit",
-                    backTap: (){
-                      Navigator.pop(context);
-                    }),
-              ),
-              gapH(20.h),
-              fdItem()
-            ]
-        )
+    bloc = context.read<FixedDepositCalculatorBloc>();
+    return BlocBuilder<FixedDepositCalculatorBloc, FixedDepositCalculatorState>(
+      builder: (context, state) {
+        if (state is FDSummaryResponseState){
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+            Future.delayed(Duration.zero, (){
+              bloc.showLiquidationConfirmation(context, state.response, FixedDepositLiquidationRequest(accountnumber: fd.tdAccountNo, settlementAccount: fd.settlementAcctNo));
+              bloc.initial();
+            });
+          });
+        }
+        if (state is FDSummaryLiquidationState){
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+            Future.delayed(Duration.zero, (){
+              nonDismissibleBottomSheet(context,
+                  SimpleSuccessAlertBottomSheet(
+                      isSuccessful: true, type: "Request Successful",
+                      description: "Fixed deposit liquidation in progress",
+                      accountBtn: "Close",
+                      returnTap: (){
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      }));
+            });
+            bloc.initial();
+          });
+        }
+        return AppUtils().loadingWidget2(
+          context: context,
+          isLoading: state is FDLoadingState,
+          child: Scaffold(
+              backgroundColor: AppColors.whiteF4,
+              body: Column(
+                  children: [
+                    Container(
+                      color: Colors.white,
+                      child: appBarBackAndTxt(
+                          title: "Fixed deposit",
+                          backTap: (){
+                            Navigator.pop(context);
+                          }),
+                    ),
+                    gapH(20.h),
+                    fdItem()
+                  ]
+              )
+          ),
+        );
+      },
     );
   }
   Widget fdItem(){

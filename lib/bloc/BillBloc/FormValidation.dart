@@ -7,6 +7,7 @@ import 'package:rxdart/rxdart.dart';
 
 
 import '../../models/requests/BillsCustomerLookUpRequest.dart';
+import '../../models/requests/EncRequest.dart';
 import '../../models/requests/VendRequest.dart';
 import '../../models/response/BillsResponse/BillerGroupsDetailsResponse.dart';
 import '../../models/response/BillsResponse/BillerPackageResponse.dart';
@@ -91,7 +92,7 @@ class BillFormValidation{
       }
   );
 
-  VendRequest getVendRequest(String pin,{ bool? isData = false}){
+  EncRequest getVendRequest(String pin,{ bool? isData = false}){
     return VendRequest(
         accountNumber: _selectedAccount.stream.value.accountnumber ?? "",
         amountPaid: double.parse(_amountSubject.stream.value.replaceAll(",", "")),
@@ -104,7 +105,7 @@ class BillFormValidation{
         usesPreset: true,
         bsig: "",
         otpCode: "11111"
-    );
+    ).encryptedRequest();
   }
 
   BillsCustomerLookUpRequest getBillsCustomerLookUpRequest(){

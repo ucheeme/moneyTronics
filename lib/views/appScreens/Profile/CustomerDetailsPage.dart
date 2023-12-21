@@ -99,7 +99,7 @@ class _CustomerDetailsPageState extends State<CustomerDetailsPage> {
                       onChange: (v){},
                       error:  "",
                     ),
-                    gapH(28.h),
+                    //gapH(28.h),
                     CustomTextFieldWithValidation(
                       controller: registeredEmailAddress,
                       title: "Registered email address",
@@ -109,7 +109,7 @@ class _CustomerDetailsPageState extends State<CustomerDetailsPage> {
                       onChange: (v){},
                       error:  "",
                     ),
-                    gapH(28.h),
+                   // gapH(28.h),
                     CustomTextFieldWithValidation(
                       controller: registeredPhoneNumber,
                       title: "Registered phone number",
@@ -119,7 +119,7 @@ class _CustomerDetailsPageState extends State<CustomerDetailsPage> {
                       onChange: (v){},
                       error:  "",
                     ),
-                    gapH(28.h),
+                   // gapH(28.h),
                     CustomTextFieldWithValidation(
                       controller: registeredHomeAddress,
                       title: "Registered home address",

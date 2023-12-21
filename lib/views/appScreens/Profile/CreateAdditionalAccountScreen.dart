@@ -75,7 +75,7 @@ class _CreateAdditionalAccountState extends State<CreateAdditionalAccount> {
             child: Scaffold(resizeToAvoidBottomInset: true,
               backgroundColor: AppColors.whiteFA,
               bottomSheet: SizedBox(
-                height: 150.h,
+                height: 200.h,
                 child: Center(
                   child:   selectedProduct != null ? blueBtn(title: 'Proceed', tap: () {
                     bloc.add( ProfileCreateAdditionalAccountEvent(request: ProductCode(productCode: selectedProduct?.productCode ?? "")));
@@ -109,7 +109,8 @@ class _CreateAdditionalAccountState extends State<CreateAdditionalAccount> {
     );
   }
   void productSelection() async {
-    await openBottomSheet(context, SelectTextBottomSheet(titleText: "Select product", items: selectionModels, height: 400.h, ),)
+    await openBottomSheet(context, SelectTextBottomSheet(
+      titleText: "Select product", items: selectionModels, height: 400.h, ),)
         .then((value) {
       if (value is SelectionModal){
         productSelectControl.text = value.title;

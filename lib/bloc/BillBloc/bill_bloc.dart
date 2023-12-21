@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import '../../Repository/BillRepository.dart';
 import '../../models/requests/BillMakeBillsPaymentRequest.dart';
 import '../../models/requests/BillsCustomerLookUpRequest.dart';
+import '../../models/requests/EncRequest.dart';
 import '../../models/requests/VendRequest.dart';
 import '../../models/response/ApiResonse2.dart';
 import '../../models/response/ApiResponse.dart';
@@ -165,7 +166,7 @@ class BillBloc extends Bloc<BillEvent, BillState> {
   handleMakeBillsPayment(event) async {
     emit(BillStateLoading());
     try {
-      final response = await repository.postMakeBillPayment(event.request);
+      final response = await repository.postMakeBillPayment(event.request.encryptedRequest());
       if (response is BillMakeBillsPaymentResponse) {
         emit(BillMakeBillsPaymentSuccessState(response));
         AppUtils.debug("success response fetched");//BillsCustomerLookUpResponse
@@ -173,11 +174,11 @@ class BillBloc extends Bloc<BillEvent, BillState> {
       else{
         response as ApiResponse;
         emit(BillStateError(response));
-        AppUtils.debug("error1");
+        AppUtils.debug("make bill payment error");
       }
     }catch(e){
       emit(BillStateError(AppUtils.defaultErrorResponse()));
-      AppUtils.debug("error2");
+      AppUtils.debug("make bill payment exception error");
     }
   }
 

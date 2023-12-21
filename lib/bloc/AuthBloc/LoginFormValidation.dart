@@ -7,6 +7,10 @@ import 'package:rxdart/rxdart.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../models/requests/CreateAccountRequest.dart';
+import '../../models/requests/CreateExistingUserRequest.dart';
+import '../../models/requests/ValidateExistingUserRequest.dart';
+import '../../models/response/SecurityQuestionsResponse.dart';
+import '../../models/response/validateExistingUserAccountResponsse.dart';
 import '../../utils/DeviceUtil.dart';
 import '../../utils/appUtil.dart';
 
@@ -23,6 +27,10 @@ import '../../utils/appUtil.dart';
    final _usernameSubject = BehaviorSubject<String>();
    final _passwordSubject = BehaviorSubject<String>();
    final _retypePassword = BehaviorSubject<String>();
+   final _accNumberSubject = BehaviorSubject<String>();
+   final _tranPinSubject = BehaviorSubject<String>();
+   final _securityQuestion = BehaviorSubject<SecurityQuestion>();
+   final _securityAnswer = BehaviorSubject<String>();
 
    Function(String) get setFirstName => _firstNameSubject.sink.add;
 
@@ -45,6 +53,10 @@ import '../../utils/appUtil.dart';
    Function(String) get setPassword => _passwordSubject.sink.add;
 
    Function(String) get setRetypePassword => _retypePassword.sink.add;
+   Function(String) get setAccNumber => _accNumberSubject.sink.add;
+   Function(String) get setTransactionPin => _tranPinSubject.sink.add;
+   Function(SecurityQuestion) get setSecurityQuestion => _securityQuestion.sink.add;
+   Function(String) get setSecurityAnswer => _securityAnswer.sink.add;
 
    Stream<String> get firstName => _firstNameSubject.stream.transform(validateFirstName);
 
@@ -63,17 +75,34 @@ import '../../utils/appUtil.dart';
    Stream<String> get username =>
        _usernameSubject.stream.transform(validateUsername);
 
+   Stream<String> get accountNumber =>
+       _accNumberSubject.stream.transform(validateAccountNumber);
+   Stream<String> get transactionPin =>
+       _tranPinSubject.stream.transform(validateTransPin);
+
    Stream<String> get password =>
        _passwordSubject.stream.transform(validatePassword);
 
    Stream<String> get retypePassword =>
        _retypePassword.stream.transform(validateRetypePassword());
 
+   Stream<SecurityQuestion> get securityQuestion =>
+       _securityQuestion.stream.transform(validateSecurityQuestion);
+   Stream<String> get securityAnswer =>
+       _securityAnswer.stream.transform(validateSecretAnswer);
+
+
    Stream<bool> get userInfoFormValid => Rx.combineLatest5(
        firstName, lastName, gender, email, phone, (firstName, lastName,
        gender, email, phone) => true);
    Stream<bool> get userInfo2FormValid => Rx.combineLatest4(username, bvn, password, retypePassword,
            (username, bvn, password, retypePassword) => true);
+
+
+   Stream<bool> get bvnValidationFormValid => Rx.combineLatest2(bvn, accountNumber,
+           (bvn,accountNumber) => true);
+   Stream<bool> get existingUserCreateFormValid => Rx.combineLatest6(username,email, password,transactionPin,securityQuestion,securityAnswer,
+           (username,email,password,transactionPin,securityQuestion,securityAnswer) => true);
 
    final validateFirstName = StreamTransformer<String, String>.fromHandlers(
        handleData: (firstName, sink) {
@@ -163,6 +192,38 @@ import '../../utils/appUtil.dart';
        }
    );
 
+   final validateAccountNumber = StreamTransformer<String, String>.fromHandlers(
+       handleData: (value, sink) {
+         if (value.length != 10) {
+           sink.addError('Enter a valid account number');
+         } else {
+           sink.add(value);
+         }
+       }
+   );
+   final validateTransPin = StreamTransformer<String, String>.fromHandlers(
+       handleData: (value, sink) {
+         if (value.length != 4) {
+           sink.addError('Enter a four digit pin');
+         } else {
+           sink.add(value);
+         }
+       }
+   );
+   final validateSecurityQuestion = StreamTransformer<SecurityQuestion,  SecurityQuestion>.fromHandlers(
+       handleData: (value, sink) {
+         sink.add(value);
+       }
+   );
+   final validateSecretAnswer = StreamTransformer<String, String>.fromHandlers(
+       handleData: (value, sink) {
+         if (value.isEmpty) {
+           sink.addError('Please secret answer');
+         } else {
+           sink.add(value);
+         }
+       }
+   );
    StreamTransformer<String, String>  validateRetypePassword() {
    return StreamTransformer<String,
        String>.fromHandlers(
@@ -195,6 +256,36 @@ import '../../utils/appUtil.dart';
     );
     return request;
   }
+
+   ValidateExistingUserRequest validateExistingUser(BuildContext context){
+     ValidateExistingUserRequest request = ValidateExistingUserRequest(
+         bvn: _bvnSubject.stream.value,
+         accountNumber: _accNumberSubject.stream.value,
+         referral: ""
+     );
+     return request;
+   }
+   CreateExistingUserRequest createExistingUser(BuildContext context,ValidateExistingUserAccountResponse? userData,String otp){
+     CreateExistingUserRequest request = CreateExistingUserRequest(
+       fullname: userData?.fullname??"",
+       accountnumber: userData?.accountnumber??"",
+       username: _usernameSubject.stream.value,
+       email: _emailSubject.stream.value,
+       userpassword: _retypePassword.stream.value,
+       opTcode: otp,
+       transactionPin: _tranPinSubject.stream.value,
+       secretQuestionId: _securityQuestion.stream.value.id,
+       secretAnswer: _securityAnswer.stream.value,
+       deviceId: const Uuid().v1(),
+       deviceModel: deviceModel,
+       deviceOs: deviceOs,
+       deviceName: deviceName,
+       deviceType: "mobile",
+     );
+     return request;
+   }
+
+
 
    String getUserPassKey(){
 

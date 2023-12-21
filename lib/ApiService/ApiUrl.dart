@@ -15,6 +15,8 @@ class AppUrls {
   static const setTransactionPin = '$apiGateWay/settings/set-transaction-pin';
   static const setSecurityQuestion = '$apiGateWay/settings/set-SecretQuestion-Answer';
   static const getFixedDeposit = '$apiGateWay/fixed-deposit';
+  static const fixedDepositLiquidationSummary = '$apiGateWay/fixed-deposit/liquidation-summary/';
+  static const fixedDepositLiquidation = '$apiGateWay/fixed-deposit/liquidation';
   static const fixedDepositInvest = '$apiGateWay/fixed-deposit/invest';
   static const fixedDepositProducts = '$apiGateWay/fixed-deposit/products';
   static const fixedDepositCalculator = '$apiGateWay/fixed-deposit/calculator';
@@ -42,9 +44,12 @@ class AppUrls {
   static const billerCustomerLookUpUrl = '$apiGateWay/bills/customer-lookup';
   static const billerMakePaymentUrl = '$apiGateWay/bills/make-payment';
   static const statementRequestUrl = '$apiGateWay/report/statement-request';
+  static const billerMakePaymentUrlSec = '$apiGateWay/bills/make-payment-sec';
   static const bvnInfo = '$apiGateWay/bvn/bvn-info';
   static const accountTierUpgrade = '$apiGateWay/account/account-tier-upgrade';
   static const docUpload = "$apiGateWay/utilities/upload-document";
+  static const validateExistingBvn = '$apiGateWay/bvn/validate-existing-bvn';
+  static const createExistingUser = '$apiGateWay/account/register-existing-user';
 }
 class ApiResponseCodes {
   static const success = 200;

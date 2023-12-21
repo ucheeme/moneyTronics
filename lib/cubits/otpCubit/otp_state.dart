@@ -53,3 +53,9 @@ class OtpResendState extends OtpState {
   @override
   List<Object> get props => [response];
 }
+class OtpCollectedState extends OtpState {
+  final String response;
+  const OtpCollectedState(this.response);
+  @override
+  List<Object> get props => [response];
+}

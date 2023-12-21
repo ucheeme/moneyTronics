@@ -2,18 +2,23 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 
 import '../../models/requests/FDCalculator.dart';
+import '../../models/requests/FixedDepositLiquidationRequest.dart';
 import '../../models/requests/FixedDepositRequest.dart';
 import '../../models/response/ApiResponse.dart';
 import '../../models/response/FDCalculatorResponse.dart';
+import '../../models/response/FDLiquidationResponse.dart';
 import '../../models/response/FDProducts.dart';
+import '../../models/response/FdLiquidationSummaryResponse.dart';
 import '../../models/response/FixedDepositListResponse.dart';
 import '../../models/response/FixedDepositResponse.dart';
 import '../../repository/FDRepository.dart';
 import '../../utils/appUtil.dart';
+import '../../views/appScreens/dashboard/fixedDeposit/FDLiquidationConfirmationScreen.dart';
 import 'BookingFormValidation.dart';
 
 part 'fixed_deposit_calculator_event.dart';
@@ -72,6 +77,12 @@ class FixedDepositCalculatorBloc extends Bloc<FixedDepositCalculatorEvent, Fixed
     on<FDListEvents>((event, emit) {
       handleFDListEvent(event);
     });
+    on<FDLiquidationEvent>((event, emit) {
+      handleFDLiquidationEvent(event);
+    });
+    on<FDLiquidationSummaryEvent>((event, emit) {
+      handleFDLiquidationSummaryEvent(event);
+    });
   }
   handleCalculatorEvent(event) async {
     try {
@@ -126,6 +137,54 @@ class FixedDepositCalculatorBloc extends Bloc<FixedDepositCalculatorEvent, Fixed
         AppUtils.debug("error");
       }
 
+
+    }catch(e){
+      emit(FDStateError(AppUtils.defaultErrorResponse()));
+      AppUtils.debug("error");
+    }
+
+  }
+
+
+  handleFDLiquidationSummaryEvent(event) async {
+
+
+    try {
+
+      emit(FDLoadingState());
+      final response = await repository.fdLiquidateSummary(event.request);
+      if (response is FixedDepositSummaryResponse) {
+        emit(FDSummaryResponseState(response));
+        AppUtils.debug("login successful");
+      }else{
+        response as ApiResponse;
+        emit(FDStateError(response));
+        AppUtils.debug("error");
+      }
+
+    }catch(e){
+      emit(FDStateError(AppUtils.defaultErrorResponse()));
+      AppUtils.debug("error");
+    }
+
+  }
+
+
+  handleFDLiquidationEvent(event) async {
+
+
+    try {
+      emit(FDLoadingState());
+      final response = await repository.fdLiquidate(event.request);
+      if (response is FdLiquidationResponse) {
+        emit(FDSummaryLiquidationState(response));
+        AppUtils.debug("login successful");
+      } else {
+        response as ApiResponse;
+        emit(FDStateError(response));
+        AppUtils.debug("error");
+      }
+
     }catch(e){
       emit(FDStateError(AppUtils.defaultErrorResponse()));
       AppUtils.debug("error");
@@ -136,5 +195,24 @@ class FixedDepositCalculatorBloc extends Bloc<FixedDepositCalculatorEvent, Fixed
   initial(){
     emit(FixedDepositCalculatorInitial());
   }
-
+  showLiquidationConfirmation(BuildContext context, FixedDepositSummaryResponse response, FixedDepositLiquidationRequest request) async{
+    await showModalBottomSheet(
+        isDismissible: false,
+        enableDrag: true,
+        isScrollControlled: true,
+        context: context,
+        builder: (context) => SafeArea(
+          child: Container(height: MediaQuery.of(context).size.height * 0.7,
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child:  FDLiquidationConfirmationScreen(response: response)
+          ),
+        )
+    ).then((r) {
+      if (r == true){
+        add(FDLiquidationEvent(request));
+      }
+    });
+  }
 }

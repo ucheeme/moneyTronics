@@ -9,7 +9,7 @@ class BillGetNetworkProvidersEvents  extends BillEvent {
   List<Object?> get props => [];
 }
 class BillPostVendEvents extends BillEvent {
-  VendRequest request;
+  EncRequest request;
   BillPostVendEvents({required this.request});
   @override
   List<Object?> get props => [];

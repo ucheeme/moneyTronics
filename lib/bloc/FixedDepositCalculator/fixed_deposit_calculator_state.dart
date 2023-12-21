@@ -35,6 +35,18 @@ class FDInvestResponseState extends FixedDepositCalculatorState {
   @override
   List<Object> get props => [response];
 }
+class FDSummaryResponseState extends FixedDepositCalculatorState {
+  final FixedDepositSummaryResponse response;
+  const FDSummaryResponseState(this.response);
+  @override
+  List<Object> get props => [response];
+}
+class FDSummaryLiquidationState extends FixedDepositCalculatorState {
+  final FdLiquidationResponse response;
+  const FDSummaryLiquidationState(this.response);
+  @override
+  List<Object> get props => [response];
+}
 class FDStateError extends FixedDepositCalculatorState {
   final ApiResponse errorResponse;
   const FDStateError(this.errorResponse);

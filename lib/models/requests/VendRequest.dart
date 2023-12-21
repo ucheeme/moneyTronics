@@ -3,6 +3,14 @@
 //     final vendRequest = vendRequestFromJson(jsonString);
 
 import 'dart:convert';
+import 'dart:typed_data';
+import 'package:crypto/crypto.dart';
+import 'package:encrypt/encrypt.dart';
+import '../../Env/env.dart';
+import '../../Utils/appUtil.dart';
+import '../../views/startScreen/login/loginFirstTime.dart';
+import 'EncRequest.dart';
+import 'VendingSecRequest.dart';
 
 VendRequest vendRequestFromJson(String str) => VendRequest.fromJson(json.decode(str));
 
@@ -62,4 +70,39 @@ class VendRequest {
     "bsig": bsig,
     "otpCode": otpCode,
   };
+  EncRequest encryptedRequest(){
+    VendSecRequest request = VendSecRequest(
+        accountNumber: accountNumber,
+        amountPaid: amountPaid.toString(),
+        channel: "mobile",
+        customerName: loginResponse?.fullname ?? "",
+        phoneNumber: phoneNumber,
+        email: loginResponse?.email ?? "",
+        transactionPin: transactionPin,
+        otpCode: otpCode,
+        customerId: loginResponse?.customerId ?? "",
+        packageSlug: subCode
+    );
+
+    final buffer = StringBuffer();
+    buffer.write(request.phoneNumber);
+    buffer.write(AppUtils.convertDateSystem(DateTime.now()));
+    buffer.write(loginResponse?.username ?? "");
+    buffer.write(request.accountNumber);
+    buffer.write(request.amountPaid);
+    buffer.write(vendingCode);
+    var key = utf8.encode(Env.hmacKey);
+    Hmac hmac =  Hmac(sha512, key);
+    var bytes = utf8.encode(buffer.toString());
+    var digest = hmac.convert(bytes);
+    String encRequest = base64.encode(digest.bytes);
+
+
+    var key2 =Key.fromUtf8(Env.aesKey);
+    final encrypter = Encrypter(AES(key2, mode: AESMode.cbc));
+    var digest2 = encrypter.encrypt(vendSecRequestToJson(request));
+    String detailsRequest = base64.encode(digest2.bytes);
+
+    return EncRequest(encRequest: encRequest, detailsRequest: detailsRequest);
+  }
 }

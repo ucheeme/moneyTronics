@@ -40,6 +40,11 @@ class OtpCubit extends Cubit<OtpState> {
       emit(OtpErrorState(AppUtils.defaultErrorResponse()));
     }
   }
+  void setCollectedPinCode(String value) async{
+    if (value.length == 6){
+      emit(OtpCollectedState(value));
+    }
+  }
   //
   // void validatePin(request) async {
   //   try {

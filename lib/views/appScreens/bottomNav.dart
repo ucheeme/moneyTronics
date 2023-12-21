@@ -24,16 +24,26 @@ class _BottomNavigatorState extends State<BottomNavigator>  with TickerProviderS
   @override
   void initState() {
     super.initState();
+    screens = [
+      DashBoardScreen(onTap: (){
+        _goToHistory();
+      }),
+      const CardsScreen(),
+      const TransactionHistoryScreen(),
+      const ProfileScreen()
+
+    ];
     tabController = TabController(length: 4, vsync: this);
   }
 
-  List<Widget> screens = [
-    const DashBoardScreen(),
-    const CardsScreen(),
-    const TransactionHistoryScreen(),
-    const ProfileScreen()
-
-  ];
+  _goToHistory(){
+    tabController.animateTo(
+      2,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.ease,
+    );
+  }
+  List<Widget> screens = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(resizeToAvoidBottomInset: false,

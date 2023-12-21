@@ -40,6 +40,7 @@ class _UpgradeAccount extends State<UpgradeAccount> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     bloc = context.read<SettingBloc>();

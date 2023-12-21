@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+import 'package:flutter_page_lifecycle/flutter_page_lifecycle.dart';
 import '../../../../UiUtil/customWidgets.dart';
 import '../../../../UiUtil/infos.dart';
 import '../../../../UiUtil/textWidgets.dart';
@@ -44,67 +44,73 @@ class _FDListPageState extends State<FDListPage> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: BlocBuilder<FixedDepositCalculatorBloc, FixedDepositCalculatorState>(
         builder: (context, state) {
-          return Scaffold(
-            backgroundColor:AppColors.whiteFA,
-            body: SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
-              child: Column(
-                children: [
-                  selectAccountColumn(
-                      title: "Select sending account",
-                      pageView: SizedBox(width: double.infinity,height: 100.h,
-                        child: PageView.builder(
-                          scrollDirection: Axis.horizontal,
-                          controller: _sendingAccPageController,
-                          onPageChanged: (int page) {
-                            setState(() {_currentSendingAccPageIndex = page;});
-                          },
-                          itemCount: accountWidget().length,
-                          itemBuilder: (context, index) {
-                            return accountWidget()[index];
-                          },
-                        ),
-                      ),
-                      pageIndicator: SmoothPageIndicator(
-                        controller: _sendingAccPageController,
-                        count: accountWidget().length,
-                        effect: customIndicatorEffect(),
-                      )
-                  ),
-                  gapH(30.h),
-                  StreamBuilder<List<FixedDepositListResponse>>(
-                      stream: bloc.fdListSubject,
-                      builder: (context, snapshot) {
-                        return (snapshot.hasData && snapshot.data!.isNotEmpty) ? SizedBox(
-                          height: 400.h,
-                          child: ListView.builder(
-                              padding: EdgeInsets.zero,
-                              itemCount: snapshot.data?.length,
-                              itemBuilder: (context, index) {
-                                var data = snapshot.data![index];
-                                return fdItem(() {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  FDSelectedItemPage(fd: data,)));
-                                }, data,);
-                              }
+          return PageLifecycle(
+
+            stateChanged: (bool appeared) {
+              if (appeared){
+                bloc.add(const FDListEvents());
+              }
+            },
+            child: Scaffold(
+              backgroundColor:AppColors.whiteFA,
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    selectAccountColumn(
+                        title: "Select sending account",
+                        pageView: SizedBox(width: double.infinity,height: 100.h,
+                          child: PageView.builder(
+                            scrollDirection: Axis.horizontal,
+                            controller: _sendingAccPageController,
+                            onPageChanged: (int page) {
+                              setState(() {_currentSendingAccPageIndex = page;});
+                            },
+                            itemCount: accountWidget().length,
+                            itemBuilder: (context, index) {
+                              return accountWidget()[index];
+                            },
                           ),
-                        ):  Column(
-                          children: [
-                            gapH(10.0),
-                            Image.asset("assets/png/images/empty_state.png", height: 200, width: 200,),
-                            Center(
-                              child:  ctmTxtGroteskMid("No fixed deposit",AppColors.black4D, 20.sp),
+                        ),
+                        pageIndicator: SmoothPageIndicator(
+                          controller: _sendingAccPageController,
+                          count: accountWidget().length,
+                          effect: customIndicatorEffect(),
+                        )
+                    ),
+                    gapH(30.h),
+                    StreamBuilder<List<FixedDepositListResponse>>(
+                        stream: bloc.fdListSubject,
+                        builder: (context, snapshot) {
+                          return (snapshot.hasData && snapshot.data!.isNotEmpty) ? SizedBox(
+                            height: 10000,
+                            child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                itemCount: snapshot.data?.length,
+                                itemBuilder: (context, index) {
+                                  var data = snapshot.data![index];
+                                  return fdItem(() {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  FDSelectedItemPage(fd: data,)));
+                                  }, data,);
+                                }
                             ),
-                          ],
-                        );
-                      }
-                  ),
-                ],
+                          ):  Column(
+                            children: [
+                              gapH(10.0),
+                              Image.asset("assets/png/images/empty_state.png", height: 200, width: 200,),
+                              Center(
+                                child:  ctmTxtGroteskMid("No fixed deposit",AppColors.black4D, 20.sp),
+                              ),
+                            ],
+                          );
+                        }
+                    ),
+                  ],
+                ),
               ),
             ),
           );},),
     );
   }
-
   Widget fdItem(onTap, FixedDepositListResponse fd){
     return GestureDetector(
       onTap: onTap,

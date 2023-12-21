@@ -92,42 +92,44 @@ class AppUtils{
     if (isLoading){
       FocusManager.instance.primaryFocus?.unfocus();
     }
-    return Stack(
-        children: [
-          Container(child: child,),
-          isLoading ? Container(
-            color: Colors.black.withOpacity(0.5),
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Column(
+    return Scaffold(
+      body: Stack(
+          children: [
+            Container(child: child,),
+            isLoading ? Container(
+              color: Colors.black.withOpacity(0.5),
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
 
-              children: [
-                Spacer(),
-                Container(
-                  width: double.infinity,height: 247.h,
-                  color: AppColors.white,
-                  child: Column(
-                    children: [
-                      gapHeight(30.h),
-                      loadingIndicator(),
-                      gapHeight(25.h),
-                      SizedBox(
-                        width: 270.w,
-                        child: Column(children: [
-                          ctmTxtGroteskMid("Processing", AppColors.black, 24.sp),
-                          gapHeight(15.h),
-                          ctmTxtGroteskMid("Please wait while we process your request",
-                              AppColors.black33, 16.sp,maxLines: 2,textAlign: TextAlign.center)
+                children: [
+                  Spacer(),
+                  Container(
+                    width: double.infinity,height: 247.h,
+                    color: AppColors.white,
+                    child: Column(
+                      children: [
+                        gapHeight(30.h),
+                        loadingIndicator(),
+                        gapHeight(25.h),
+                        SizedBox(
+                          width: 270.w,
+                          child: Column(children: [
+                            ctmTxtGroteskMid("Processing", AppColors.black, 24.sp),
+                            gapHeight(15.h),
+                            ctmTxtGroteskMid("Please wait while we process your request",
+                                AppColors.black33, 16.sp,maxLines: 2,textAlign: TextAlign.center)
 
 
-                        ],),
-                      ),
-                    ],
+                          ],),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),): gapHeight(1.0)
-        ]);
+                ],
+              ),): gapHeight(1.0)
+          ]),
+    );
   }
   Container loadingIndicator() {
     return Container(

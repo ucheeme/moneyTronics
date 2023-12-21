@@ -107,7 +107,7 @@ Widget manualProgressIndicator({required double progressWidthValue}) {
     padding: EdgeInsets.symmetric(horizontal: 4.w),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(20.r),
-      color: AppColors.greenEB,
+      color: AppColors.moneyTronicsSkyBlue,
       // boxShadow: [
       // BoxShadow(
       // color: AppColors.black.withOpacity(0.10),

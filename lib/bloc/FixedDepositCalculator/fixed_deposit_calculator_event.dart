@@ -25,3 +25,15 @@ class FDInvestEvent  extends FixedDepositCalculatorEvent {
   @override
   List<Object?> get props => [];
 }
+class FDLiquidationSummaryEvent  extends FixedDepositCalculatorEvent {
+  final String request;
+  const FDLiquidationSummaryEvent(this.request);
+  @override
+  List<Object?> get props => [];
+}
+class FDLiquidationEvent  extends FixedDepositCalculatorEvent {
+  final FixedDepositLiquidationRequest request;
+  const FDLiquidationEvent(this.request);
+  @override
+  List<Object?> get props => [];
+}

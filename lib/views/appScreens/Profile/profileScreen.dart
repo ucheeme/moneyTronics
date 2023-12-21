@@ -97,13 +97,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           optionWidgetText(title: 'Account details', tap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context)=> const CustomerDetailsPage()));
                           }),
-                          optionWidgetText(title: 'Account upgrade', tap: (){
-                            // if (loginResponse?.registrationStatus == "00") {
-                            // }else{
-                            // bloc.add(const SettingBvnInfoEvent());
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const AccountUpgradeScreen()));
-                            //   }
-                          }),
+                      optionWidgetTextAndStatus(title: 'Account upgrade', tap: (){
+                        // if (loginResponse?.registrationStatus == "00") {
+                        // }else{
+                        // bloc.add(const SettingBvnInfoEvent());
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const AccountUpgradeScreen()));
+                        //   }
+                      },
+                          widget: pendingWidget(loginResponse?.registrationStatus == "00" ? "completed" : "pending", loginResponse?.registrationStatus == "00" ?  true : false)),
 
                           optionWidgetText(title: 'Create new account', tap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context)=> const CreateAdditionalAccount()));
@@ -136,14 +137,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               image: "assets/png/icons/limit.png"
                           ),
                           gapH(10.h),
-                          header("Contact us"),
-                          gapH(20.h),
-                          optionWidgetText(title: 'Enquiries and feedback', tap: (){},
-                              image: "assets/png/icons/lock_two.png"
-                          ),
-                          optionWidgetText(title: 'Frequently asked questions (Faqs)', tap: (){},
-                              image: "assets/png/icons/key.png"
-                          ),
+                          // header("Contact us"),
+                          // gapH(20.h),
+                          // optionWidgetText(title: 'Enquiries and feedback', tap: (){},
+                          //     image: "assets/png/icons/lock_two.png"
+                          // ),
+                          // optionWidgetText(title: 'Frequently asked questions (Faqs)', tap: (){},
+                          //     image: "assets/png/icons/key.png"
+                          // ),
                           gapH(10.h),
                           signOutTab(
                               signOut: () {

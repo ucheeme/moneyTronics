@@ -10,3 +10,23 @@ abstract class AuthEvent extends Equatable {
   @override
   List<Object?> get props => [];
 }
+class AuthEventValidateExistingBVN  extends AuthEvent {
+ final ValidateExistingUserRequest request;
+ const AuthEventValidateExistingBVN(this.request);
+
+ @override
+ List<Object?> get props => [];
+}
+class SecurityQuestionsEvent  extends AuthEvent {
+ const SecurityQuestionsEvent();
+ @override
+ List<Object?> get props => [];
+}
+class AuthEventCreateExistingUser  extends AuthEvent {
+ final CreateExistingUserRequest request;
+ const AuthEventCreateExistingUser(this.request);
+
+ @override
+ List<Object?> get props => [];
+}
+

@@ -47,8 +47,8 @@ var hasSetPin = false;
 List<UserAccount>? userAccounts;
 List<BillerGroupsResponse> billerGroupList =[];
 class DashBoardScreen extends StatefulWidget {
-
-  const DashBoardScreen({super.key});
+  final Function() onTap;
+  const DashBoardScreen({required this.onTap, super.key});
   @override
   State<DashBoardScreen> createState() => _DashBoardScreenState();
 
@@ -303,7 +303,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             ctmTxtGroteskMid("Recent transactions",AppColors.black4D,18.sp),
-                            ctmTxtGroteskReg("View all",AppColors.black4D,16.sp)
+                            GestureDetector(
+                                onTap: (){
+                                  widget.onTap();
+                                },
+                                child: ctmTxtGroteskReg("View all",AppColors.black4D,16.sp))
                           ],
                         ),
                         gapH(15.0),

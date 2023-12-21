@@ -24,3 +24,21 @@ class AuthStateUserCreated extends AuthState {
   @override
   List<Object> get props => [response];
 }
+class AuthStateValidateExistingBVN extends AuthState {
+  final ValidateExistingUserAccountResponse response;
+  const AuthStateValidateExistingBVN(this.response);
+  @override
+  List<Object> get props => [response];
+}
+class SecurityQuestionState extends AuthState {
+  final List<SecurityQuestion> response;
+  const SecurityQuestionState(this.response);
+  @override
+  List<Object> get props => [response];
+}
+class AuthStateCreateExisting extends AuthState {
+  final CreateExistingUserResponse response;
+  const AuthStateCreateExisting(this.response);
+  @override
+  List<Object> get props => [response];
+}

@@ -85,6 +85,8 @@ dev_dependencies:
   shared_preferences:
   share_files_and_screenshot_widgets:
   image_gallery_saver: '^2.0.3'
+  crypto:
+  encrypt: ^5.0.3
   modal_bottom_sheet:
     git:
       url: https://github.com/followthemoney1/modal_bottom_sheet.git
